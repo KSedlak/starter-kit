@@ -1,0 +1,10 @@
+1.	Przepisac konfiguracje beanów z XML na adnotacje (to co sie da)
+2.	Ustawianie ID dla nowej ksiazki przeniesc z metody BookDaoImpl.save do aspektu.
+3.	Zmienic klase BookDaoImpl tak, aby operowala jedynie na typie ksiazki BookEntity a nie BookTo. 
+Typ ten powinien byc taki sam jak BookDao z jedna róznica, zamiast pola String authors, powinien posiadac typ List<AthorTo> authors. Gdzie AuthorTo posiada id, firstName, lastName.
+Klasa BookServiceImpl operuje na typie takim jak do tej pory, czyli BookTo.
+Napisac maper (Bean springowy) konwertujacy oba typy w dwie strony, czyli BookTo -> BookEntity i odwrotnie.
+4.	Zaimplementowac metody: BookDaoImpl. findBookByTitle i BookDaoImpl .findBooksByAuthor.
+Obie metody szukaja ksiazek po prefiksie. Wielkosc liter nie ma znaczenia. W przypadku wyszukiwania po autorze, powinno sie ono odbywac po imieniu i nazwisku. 
+5.	Napisac testy do wszystkich zmian z punktu 4.
+6.	Umiescic wszystkie swoje zmiany we wlasnym repozytorium w git’cie.
