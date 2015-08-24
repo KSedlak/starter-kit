@@ -4,15 +4,18 @@ import pl.spring.demo.annotation.NullableId;
 import pl.spring.demo.common.Sequence;
 import pl.spring.demo.dao.BookDao;
 import pl.spring.demo.entity.BookEntity;
-import pl.spring.demo.mapper.BookMapper;
 import pl.spring.demo.to.BookTo;
-
+import pl.spring.demo.dao.mapper.*;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import javax.annotation.PostConstruct;
+import javax.annotation.Resource;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Repository;
 
 @Repository
@@ -23,13 +26,15 @@ public class BookDaoImpl implements BookDao {
 
 	@Autowired
     private Sequence sequence;
-    
+
+	@Resource
     private BookMapper bookMapper;
 
     public BookDaoImpl() {
-    	bookMapper=new BookMapper();
-        addTestBooks();
+  
     }
+
+   
 
     @Override
     public List<BookTo> findAll() {
@@ -75,9 +80,6 @@ public class BookDaoImpl implements BookDao {
     @Override
     @NullableId
     public BookTo save(BookTo book) {
-        if (book.getId() == null) {
-            book.setId(sequence.nextValue(ALL_BOOKS));
-        }
         ALL_BOOKS.add(bookMapper.mappedBookTo(book));
         return book;
     }
@@ -86,9 +88,28 @@ public class BookDaoImpl implements BookDao {
         this.sequence = sequence;
     }
 
-    public void setMapper(BookMapper bm) {
+    public Set<BookEntity> getALL_BOOKS() {
+		return ALL_BOOKS;
+	}
+
+
+
+	public Sequence getSequence() {
+		return sequence;
+	}
+
+
+
+	public BookMapper getBookMapper() {
+		return bookMapper;
+	}
+
+
+
+	public void setMapper(BookMapper bm) {
         this.bookMapper = bm;
     }
+    @PostConstruct
     private void addTestBooks() {
 
         ALL_BOOKS.add(bookMapper.mappedBookTo(new BookTo(1L, "Romeo i Julia", "Wiliam Szekspir")));

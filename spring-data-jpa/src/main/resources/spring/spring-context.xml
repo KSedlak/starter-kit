@@ -22,6 +22,7 @@
 
 
     <!-- AOP -->
+ <bean id="bookDaoAdvisor" class="pl.spring.demo.aop.BookDaoAdvisor"/>
 
     <bean id="bookDao" class="org.springframework.aop.framework.ProxyFactoryBean">
         <property name="target">
