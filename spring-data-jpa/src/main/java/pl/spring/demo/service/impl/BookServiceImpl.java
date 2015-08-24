@@ -6,8 +6,13 @@ import pl.spring.demo.to.BookTo;
 
 import java.util.List;
 
-public class BookServiceImpl implements BookService {
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
+@Service("bookService")
+public class BookServiceImpl implements BookService {
+	
+	@Autowired
     private BookDao bookDao;
 
     @Override

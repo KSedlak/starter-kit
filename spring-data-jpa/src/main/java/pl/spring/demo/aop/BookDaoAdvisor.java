@@ -1,16 +1,25 @@
 package pl.spring.demo.aop;
 
 
+
+import org.omg.CORBA.PRIVATE_MEMBER;
 import org.springframework.aop.MethodBeforeAdvice;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+
 import pl.spring.demo.annotation.NullableId;
 import pl.spring.demo.exception.BookNotNullIdException;
 import pl.spring.demo.to.IdAware;
 
 import java.lang.reflect.Method;
 
+import javax.sound.midi.Sequence;
+@Component("bookDaoAdvisor")
+
 public class BookDaoAdvisor implements MethodBeforeAdvice {
 
     @Override
+   // @Before("execution(* pl.spring.demo.dao.save(..))")
     public void before(Method method, Object[] objects, Object o) throws Throwable {
 
         if (hasAnnotation(method, o, NullableId.class)) {
@@ -22,6 +31,7 @@ public class BookDaoAdvisor implements MethodBeforeAdvice {
         if (o instanceof IdAware && ((IdAware) o).getId() != null) {
             throw new BookNotNullIdException();
         }
+        
     }
 
     private boolean hasAnnotation (Method method, Object o, Class annotationClazz) throws NoSuchMethodException {

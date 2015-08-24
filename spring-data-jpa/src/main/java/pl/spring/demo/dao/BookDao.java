@@ -4,6 +4,7 @@ import pl.spring.demo.to.BookTo;
 
 import java.util.List;
 
+
 public interface BookDao {
 
     List<BookTo> findAll();

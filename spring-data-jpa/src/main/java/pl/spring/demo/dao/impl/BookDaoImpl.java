@@ -10,9 +10,13 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import org.springframework.stereotype.Repository;
+
+@Repository
 public class BookDaoImpl implements BookDao {
 
-    private final Set<BookTo> ALL_BOOKS = new HashSet<>();
+    
+	private final Set<BookTo> ALL_BOOKS = new HashSet<>();
 
     private Sequence sequence;
 
