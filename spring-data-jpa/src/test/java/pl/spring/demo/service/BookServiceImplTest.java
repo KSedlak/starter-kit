@@ -1,6 +1,5 @@
 package pl.spring.demo.service;
 
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,6 +41,16 @@ public class BookServiceImplTest {
     }
     
     @Test
+    public void testShouldFindAllBooksByTitleNotFound() {
+        // given
+        final String title = "testowe zapytanie";
+        // when
+        List<BookTo> booksByTitle = bookService.findBooksByTitle(title);
+        // then
+        assertNotNull(booksByTitle);
+        assertTrue(booksByTitle.isEmpty());
+    }
+    @Test
     public void testShouldFindAllBooksByAuthor() {
         // given
         final String auth = "Zbigniew Nienacki";
@@ -52,6 +61,16 @@ public class BookServiceImplTest {
         assertFalse(booksByAuthor.isEmpty());
     }
 
+    @Test
+    public void testShouldFindAllBooksByAuthorNotFound() {
+        // given
+        final String auth = "Zbigniew Abacki";
+        // when
+        List<BookTo> booksByAuthor= bookService.findBooksByAuthor(auth);
+        // then
+        assertNotNull(booksByAuthor);
+        assertTrue(booksByAuthor.isEmpty());
+    }
     @Test(expected = BookNotNullIdException.class)
     public void testShouldThrowBookNotNullIdException() {
         // given

@@ -1,6 +1,6 @@
 package pl.spring.demo.entity;
 
-import java.awt.List;
+
 import java.util.ArrayList;
 
 import pl.spring.demo.to.*;

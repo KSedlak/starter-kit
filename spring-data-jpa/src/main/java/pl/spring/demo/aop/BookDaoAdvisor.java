@@ -1,23 +1,12 @@
 package pl.spring.demo.aop;
 
-
-
-
 import org.aspectj.lang.JoinPoint;
-import org.aspectj.lang.annotation.AfterReturning;
-import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
-import org.aspectj.lang.annotation.Pointcut;
 import org.aspectj.lang.reflect.MethodSignature;
 import org.springframework.aop.MethodBeforeAdvice;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.EnableAspectJAutoProxy;
 import org.springframework.stereotype.Component;
-
 import pl.spring.demo.annotation.NullableId;
-import pl.spring.demo.dao.BookDao;
 import pl.spring.demo.dao.impl.BookDaoImpl;
 import pl.spring.demo.entity.BookEntity;
 import pl.spring.demo.exception.BookNotNullIdException;
@@ -32,8 +21,10 @@ public class BookDaoAdvisor implements MethodBeforeAdvice {
 	
 	 @Before("execution(* save(..))")
 	 public void beforeWithoutArgs(JoinPoint pjp) throws Throwable{
+		 
 		 final String methodName = pjp.getSignature().getName();
 		 final MethodSignature methodSignature = (MethodSignature)pjp.getSignature();
+		 
 		 Method method = methodSignature.getMethod();
 		 Object[] objects=pjp.getArgs();
 		 Object o =pjp.getTarget();
