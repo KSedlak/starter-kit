@@ -15,6 +15,7 @@ import javax.annotation.PostConstruct;
 import javax.annotation.Resource;
 
 import org.springframework.beans.factory.annotation.Autowired;
+
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Repository;
 
@@ -55,8 +56,7 @@ public class BookDaoImpl implements BookDao {
     	for(BookEntity be: ALL_BOOKS){
     		temp=bookMapper.mappedBookEntity(be);
     		bookTitle= temp.getTitle();
-  
-	    	if(bookTitle.equalsIgnoreCase(title)){//or equals o co dokladnie chodzi z prefiksem
+	    	if(title.equalsIgnoreCase(bookTitle)){//or equals o co dokladnie chodzi z prefiksem
 	    		result.add(temp);
 	    	}
     	}
@@ -80,6 +80,7 @@ public class BookDaoImpl implements BookDao {
     @Override
     @NullableId
     public BookTo save(BookTo book) {
+
         ALL_BOOKS.add(bookMapper.mappedBookTo(book));
         return book;
     }

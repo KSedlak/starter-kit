@@ -15,27 +15,15 @@
         http://www.springframework.org/schema/context/spring-context.xsd  ">
 
 
-    <aop:aspectj-autoproxy/>
+     
 	<context:component-scan base-package="pl.spring.demo" />
     <util:properties id="applicationProperties" location="classpath:config/application.properties"/>
 
 
 
     <!-- AOP -->
- <bean id="bookDaoAdvisor" class="pl.spring.demo.aop.BookDaoAdvisor"/>
+ 		<aop:aspectj-autoproxy/>
 
-    <bean id="bookDao" class="org.springframework.aop.framework.ProxyFactoryBean">
-        <property name="target">
-            <bean class="pl.spring.demo.dao.impl.BookDaoImpl">
-                <property name="sequence" ref="sequence" />
-            </bean>
-        </property>
-        <property name="interceptorNames">
-            <list>
-                <value>bookDaoAdvisor</value>
-            </list>
-        </property>
-    </bean>
 
 
 </beans>

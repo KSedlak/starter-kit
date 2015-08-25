@@ -3,10 +3,21 @@ package pl.spring.demo.aop;
 
 
 
+import org.aspectj.lang.JoinPoint;
+import org.aspectj.lang.annotation.AfterReturning;
+import org.aspectj.lang.annotation.Around;
+import org.aspectj.lang.annotation.Aspect;
+import org.aspectj.lang.annotation.Before;
+import org.aspectj.lang.annotation.Pointcut;
+import org.aspectj.lang.reflect.MethodSignature;
 import org.springframework.aop.MethodBeforeAdvice;
-
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.EnableAspectJAutoProxy;
+import org.springframework.stereotype.Component;
 
 import pl.spring.demo.annotation.NullableId;
+import pl.spring.demo.dao.BookDao;
 import pl.spring.demo.dao.impl.BookDaoImpl;
 import pl.spring.demo.entity.BookEntity;
 import pl.spring.demo.exception.BookNotNullIdException;
@@ -14,14 +25,24 @@ import pl.spring.demo.to.IdAware;
 
 import java.lang.reflect.Method;
 
-
-
+@Component("bookDaoAdvisor")
+@Aspect
 public class BookDaoAdvisor implements MethodBeforeAdvice {
 
-    @Override
+	
+	 @Before("execution(* save(..))")
+	 public void beforeWithoutArgs(JoinPoint pjp) throws Throwable{
+		 final String methodName = pjp.getSignature().getName();
+		 final MethodSignature methodSignature = (MethodSignature)pjp.getSignature();
+		 Method method = methodSignature.getMethod();
+		 Object[] objects=pjp.getArgs();
+		 Object o =pjp.getTarget();
 
-    public void before(Method method, Object[] objects, Object o) throws Throwable {
-  
+		 before(method,objects,o);
+	 }
+
+	
+	public void before(Method method, Object[] objects, Object o) throws Throwable {
         if (hasAnnotation(method, o, NullableId.class)) {
             checkNotNullId(objects[0], o);
         }
@@ -34,7 +55,7 @@ public class BookDaoAdvisor implements MethodBeforeAdvice {
             throw new BookNotNullIdException();//id is set
             }
 
-        	setId(o, classObject);
+       	setId(o, classObject);
         
         }
     }

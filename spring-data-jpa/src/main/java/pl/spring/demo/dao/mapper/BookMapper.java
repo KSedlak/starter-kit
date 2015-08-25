@@ -21,8 +21,8 @@ public class BookMapper {
 	public BookTo mappedBookEntity(BookEntity be) {
 		long id = be.getId();
 		String title = be.getTitle();
-	
-		return new BookTo(id, title, AuthorsListToString(be.getAuthors()));
+		String authors = AuthorsListToString(be.getAuthors());
+		return new BookTo(id, title, authors);
 
 	}
 
@@ -36,6 +36,9 @@ public class BookMapper {
 	
 	public ArrayList<AuthorTo> stringToAuthors(String input){
 		ArrayList<AuthorTo> authors = new ArrayList<AuthorTo>();
+		if(input==null){
+			return authors;
+		}
 		String[] authorsTable = input.split(separator);
 			
 		for (int i = 0; i < authorsTable.length; i++) {
@@ -50,12 +53,12 @@ public class BookMapper {
 	}
 	public String AuthorsListToString(ArrayList<AuthorTo> list){
 		String authors="";
-		
+
 		for (int i = 0; i <= list.size() - 1; i++) {
 			authors = authors + list.get(i).getFirstName() + " " + list.get(i).getLastName()
 					+ separator;
 		}
-		if(authors.equals("")){//empty list
+		if(list.isEmpty()){//empty list
 			return "";
 		}
 	return authors.substring(0,authors.length()-separator.length()); //remove last seperator
