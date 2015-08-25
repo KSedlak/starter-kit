@@ -4,9 +4,11 @@ import pl.spring.demo.annotation.NullableId;
 import pl.spring.demo.common.Sequence;
 import pl.spring.demo.dao.BookDao;
 import pl.spring.demo.entity.BookEntity;
+import pl.spring.demo.to.AuthorTo;
 import pl.spring.demo.to.BookTo;
 import pl.spring.demo.dao.mapper.*;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -17,107 +19,88 @@ import javax.annotation.Resource;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.context.annotation.DependsOn;
 import org.springframework.stereotype.Repository;
 
 @Repository
 public class BookDaoImpl implements BookDao {
 
-    
 	private final Set<BookEntity> ALL_BOOKS = new HashSet<>();
 
 	@Autowired
-    private Sequence sequence;
+	private Sequence sequence;
 
-	@Resource
-    private BookMapper bookMapper;
-
-    public BookDaoImpl() {
-  
-    }
-
-   
-
-    @Override
-    public List<BookTo> findAll() {
-    	List<BookTo> result=new ArrayList<BookTo>();
-    	for(BookEntity be: ALL_BOOKS){
-    		result.add(bookMapper.mappedBookEntity(be));
-    	}
-        return result;
-    }
-
-    @Override
-    public List<BookTo> findBookByTitle(String title) {
-    	List<BookTo> result=new ArrayList<BookTo>();
-
-  
-    	String bookTitle="";
-    	BookTo temp;
-    	for(BookEntity be: ALL_BOOKS){
-    		temp=bookMapper.mappedBookEntity(be);
-    		bookTitle= temp.getTitle();
-	    	if(title.equalsIgnoreCase(bookTitle)){//or equals o co dokladnie chodzi z prefiksem
-	    		result.add(temp);
-	    	}
-    	}
-        return result;
-    
-    }
-
-    @Override
-    public List<BookTo> findBooksByAuthor(String author) {
-    	List<BookTo> result=new ArrayList<BookTo>();
-    	BookTo temp;
-    	for(BookEntity be: ALL_BOOKS){
-    	temp = bookMapper.mappedBookEntity(be);
-	    	if(temp.getAuthors().equalsIgnoreCase(author)){
-	    		result.add(temp);
-	    	}
-    	}
-        return result;
-    }
-
-    @Override
-    @NullableId
-    public BookTo save(BookTo book) {
-
-        ALL_BOOKS.add(bookMapper.mappedBookTo(book));
-        return book;
-    }
-
-    public void setSequence(Sequence sequence) {
-        this.sequence = sequence;
-    }
-
-    public Set<BookEntity> getALL_BOOKS() {
-		return ALL_BOOKS;
+	public BookDaoImpl() {
+		addTestBooks();
 	}
 
+	@Override
+	public List<BookEntity> findAll() {
+		return new ArrayList<>(ALL_BOOKS);
+	}
 
+	@Override
+	public List<BookEntity> findBookByTitle(String title) {
+		List<BookEntity> result = new ArrayList<BookEntity>();
+		String bookTitle;
+		for (BookEntity be : ALL_BOOKS) {
+			bookTitle = be.getTitle();
+			if (bookTitle.startsWith(title)) {// or equals o co dokladnie chodzi
+												// z prefiksem
+				result.add(be);
+			}
+		}
+		return result;
+
+	}
+
+	@Override
+	public List<BookEntity> findBooksByAuthor(String author) {
+		List<BookEntity> result = new ArrayList<BookEntity>();
+		String firstName = author.split(" ")[0];
+		String lastName = author.split(" ")[1];
+
+		for (BookEntity be : ALL_BOOKS) {
+			for (AuthorTo a : be.getAuthors()) {
+				if (firstName.equals(a.getFirstName()) && lastName.equals(a.getLastName())) {
+					result.add(be);
+				}
+			}
+		}
+		return result;
+	}
+
+	@Override
+	@NullableId
+	public BookEntity save(BookEntity book) {
+		ALL_BOOKS.add(book);
+		return book;
+	}
+
+	public void setSequence(Sequence sequence) {
+		this.sequence = sequence;
+	}
+
+	public Set<BookEntity> getALL_BOOKS() {
+		return ALL_BOOKS;
+	}
 
 	public Sequence getSequence() {
 		return sequence;
 	}
 
-
-
-	public BookMapper getBookMapper() {
-		return bookMapper;
+	private void addTestBooks() {
+		ALL_BOOKS.add(new BookEntity(1L, "Romeo i Julia",
+				new ArrayList<AuthorTo>(Arrays.asList(new AuthorTo(1l, "Wiliam", "Szekspir")))));
+		ALL_BOOKS.add(new BookEntity(2L, "Opium w rosole",
+				new ArrayList<AuthorTo>(Arrays.asList(new AuthorTo(2l, "Hanna", "Szekspir")))));
+		ALL_BOOKS.add(new BookEntity(3L, "Przygody Odyseusz",
+				new ArrayList<AuthorTo>(Arrays.asList(new AuthorTo(3l, "Jan", "Parandowski")))));
+		ALL_BOOKS.add(new BookEntity(4L, "Awantura w Niekłaju",
+				new ArrayList<AuthorTo>(Arrays.asList(new AuthorTo(4l, "Edmund", "Niziurski")))));
+		ALL_BOOKS.add(new BookEntity(5L, "Pan Samochodzik i Fantomas",
+				new ArrayList<AuthorTo>(Arrays.asList(new AuthorTo(5l, "Zbigniew", "Nienacki")))));
+		ALL_BOOKS.add(new BookEntity(6L, "Zemsta",
+				new ArrayList<AuthorTo>(Arrays.asList(new AuthorTo(6l, "Aleksander", "Fredro")))));
 	}
-
-
-
-	public void setMapper(BookMapper bm) {
-        this.bookMapper = bm;
-    }
-    @PostConstruct
-    private void addTestBooks() {
-
-        ALL_BOOKS.add(bookMapper.mappedBookTo(new BookTo(1L, "Romeo i Julia", "Wiliam Szekspir")));
-        ALL_BOOKS.add(bookMapper.mappedBookTo(new BookTo(2L, "Opium w rosole", "Hanna Ożogowska")));
-        ALL_BOOKS.add(bookMapper.mappedBookTo(new BookTo(3L, "Przygody Odyseusza", "Jan Parandowski")));
-        ALL_BOOKS.add(bookMapper.mappedBookTo(new BookTo(4L, "Awantura w Niekłaju", "Edmund Niziurski")));
-        ALL_BOOKS.add(bookMapper.mappedBookTo(new BookTo(5L, "Pan Samochodzik i Fantomas", "Zbigniew Nienacki")));
-        ALL_BOOKS.add(bookMapper.mappedBookTo(new BookTo(6L, "Zemsta", "Aleksander Fredro")));
-    }
 }

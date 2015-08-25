@@ -14,23 +14,19 @@ public class BookMapper {
 	private static String separator = ", ";
 
 	
-	public BookTo mappedBookEntity(BookEntity be) {
-		long id = be.getId();
-		String title = be.getTitle();
+	public static BookTo mappedBookEntity(BookEntity be) {
 		String authors = AuthorsListToString(be.getAuthors());
-		return new BookTo(id, title, authors);
+		return new BookTo(be.getId(),be.getTitle(), authors);
 
 	}
 
-	public BookEntity mappedBookTo(BookTo bt) {
-		long id = bt.getId();
-		String title = bt.getTitle();
-		
-		return new BookEntity(id, title, stringToAuthors(bt.getAuthors()));
+	public static BookEntity mappedBookTo(BookTo bt) {
+	
+		return new BookEntity(bt.getId(), bt.getTitle(), stringToAuthors(bt.getAuthors()));
 
 	}
 	
-	public ArrayList<AuthorTo> stringToAuthors(String input){
+	public static ArrayList<AuthorTo> stringToAuthors(String input){
 		ArrayList<AuthorTo> authors = new ArrayList<AuthorTo>();
 		if(input==null){
 			return authors;
@@ -47,7 +43,7 @@ public class BookMapper {
 		
 		
 	}
-	public String AuthorsListToString(ArrayList<AuthorTo> list){
+	public static String AuthorsListToString(ArrayList<AuthorTo> list){
 		String authors="";
 
 		for (int i = 0; i <= list.size() - 1; i++) {

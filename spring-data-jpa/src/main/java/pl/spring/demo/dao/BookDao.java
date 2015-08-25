@@ -1,5 +1,6 @@
 package pl.spring.demo.dao;
 
+import pl.spring.demo.entity.BookEntity;
 import pl.spring.demo.to.BookTo;
 
 import java.util.List;
@@ -7,11 +8,11 @@ import java.util.List;
 
 public interface BookDao {
 
-    List<BookTo> findAll();
+    List<BookEntity> findAll();
 
-    List<BookTo> findBookByTitle(String title);
+    List<BookEntity> findBookByTitle(String title);
 
-    List<BookTo> findBooksByAuthor(String author);
+    List<BookEntity> findBooksByAuthor(String author);
 
-    BookTo save(BookTo book);
+    BookEntity save(BookEntity book);
 }

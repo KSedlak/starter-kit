@@ -21,7 +21,7 @@ public class BookDaoAdvisor implements MethodBeforeAdvice {
 	
 	 @Before("execution(* save(..))")
 	 public void beforeWithoutArgs(JoinPoint pjp) throws Throwable{
-		 
+		 System.out.println("brak");
 		 final String methodName = pjp.getSignature().getName();
 		 final MethodSignature methodSignature = (MethodSignature)pjp.getSignature();
 		 
@@ -58,6 +58,7 @@ public class BookDaoAdvisor implements MethodBeforeAdvice {
     		long res=	helper.getSequence().nextValue(helper.findAll());
     		BookEntity be= (BookEntity) o;
     		be.setId(res);
+    		System.out.println(res);
     	}}
     }
     private boolean hasAnnotation (Method method, Object o, Class annotationClazz) throws NoSuchMethodException {
