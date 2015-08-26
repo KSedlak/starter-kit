@@ -42,6 +42,17 @@ public class BookServiceImplTest {
     }
     
     @Test
+    public void testShouldFindAllBooksByTitlePrefix() {
+        // given
+        final String title = "opium";
+        // when
+        List<BookTo> booksByTitle = bookService.findBooksByTitle(title);
+        // then
+        assertNotNull(booksByTitle);
+        assertFalse(booksByTitle.isEmpty());
+    }
+    
+    @Test
     public void testShouldFindAllBooksByTitleNotFound() {
         // given
         final String title = "testowe zapytanie";

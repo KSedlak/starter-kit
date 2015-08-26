@@ -1,26 +1,17 @@
 package pl.spring.demo.dao.impl;
 
 import pl.spring.demo.annotation.AutoGenenareteID;
-import pl.spring.demo.annotation.NullableId;
+import pl.spring.demo.annotation.NullableId.NullableId;
 import pl.spring.demo.common.Sequence;
 import pl.spring.demo.dao.BookDao;
 import pl.spring.demo.entity.BookEntity;
 import pl.spring.demo.to.AuthorTo;
-import pl.spring.demo.to.BookTo;
-import pl.spring.demo.dao.mapper.*;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-
-import javax.annotation.PostConstruct;
-import javax.annotation.Resource;
-
 import org.springframework.beans.factory.annotation.Autowired;
-
-import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.context.annotation.DependsOn;
 import org.springframework.stereotype.Repository;
 
 @Repository
@@ -45,9 +36,8 @@ public class BookDaoImpl implements BookDao {
 		List<BookEntity> result = new ArrayList<BookEntity>();
 		String bookTitle;
 		for (BookEntity be : ALL_BOOKS) {
-			bookTitle = be.getTitle();
-			if (bookTitle.startsWith(title)) {// or equals o co dokladnie chodzi
-												// z prefiksem
+			bookTitle = be.getTitle().toLowerCase();
+			if (bookTitle.startsWith(title.toLowerCase())) {							
 				result.add(be);
 			}
 		}
@@ -75,7 +65,6 @@ public class BookDaoImpl implements BookDao {
 	@NullableId
 	@AutoGenenareteID
 	public BookEntity save(BookEntity book) {
-		System.out.println("SAVE EXECUTION");
 		ALL_BOOKS.add(book);
 		
 		return book;

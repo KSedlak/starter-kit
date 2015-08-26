@@ -1,13 +1,13 @@
 package pl.spring.demo.aop;
 
 import org.aspectj.lang.JoinPoint;
-import org.aspectj.lang.annotation.AfterReturning;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
 import org.aspectj.lang.reflect.MethodSignature;
 import org.springframework.aop.MethodBeforeAdvice;
 import org.springframework.stereotype.Component;
-import pl.spring.demo.annotation.NullableId;
+
+import pl.spring.demo.annotation.NullableId.NullableId;
 import pl.spring.demo.dao.impl.BookDaoImpl;
 import pl.spring.demo.entity.BookEntity;
 import pl.spring.demo.exception.BookNotNullIdException;
@@ -21,8 +21,8 @@ public class BookDaoAdvisor implements MethodBeforeAdvice {
 
 	
 	 @Before("execution(* save(..))")
-	 public void beforeWithoutArgs(JoinPoint pjp) throws Throwable{
-		 final String methodName = pjp.getSignature().getName();
+	//@Before("@annotation(pl.spring.demo.annotation.NullableId)") 
+	public void beforeWithoutArgs(JoinPoint pjp) throws Throwable{
 		 final MethodSignature methodSignature = (MethodSignature)pjp.getSignature();
 		 
 		 Method method = methodSignature.getMethod();
@@ -50,11 +50,10 @@ public class BookDaoAdvisor implements MethodBeforeAdvice {
         }
         return 0;
     }
-
- //   @AfterReturning("checkNotNullId()")
+   
     private void setId(Object o,Object m){
        	if(m instanceof BookDaoImpl){
-    		if(o instanceof BookEntity){//instanceof czy dobrze tak robic?
+    		if(o instanceof BookEntity){
     			BookDaoImpl helper = (BookDaoImpl) m;
     		long res=	helper.getSequence().nextValue(helper.findAll());
     		BookEntity be= (BookEntity) o;

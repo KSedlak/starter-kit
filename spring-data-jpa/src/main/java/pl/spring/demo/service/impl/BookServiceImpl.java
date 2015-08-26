@@ -1,5 +1,6 @@
 package pl.spring.demo.service.impl;
 
+import pl.spring.demo.annotation.NullableId.NullableId;
 import pl.spring.demo.dao.BookDao;
 import pl.spring.demo.dao.impl.BookDaoImpl;
 import pl.spring.demo.dao.mapper.BookMapper;
@@ -52,10 +53,7 @@ public class BookServiceImpl implements BookService {
 
     @Override
     public BookTo saveBook(BookTo book) {
-
-       BookEntity toSave= BookMapper.mappedBookTo(book);
-        BookEntity saved= bookDao.save(toSave);
-        return  BookMapper.mappedBookEntity(saved);
+        return  BookMapper.mappedBookEntity(bookDao.save(BookMapper.mappedBookTo(book)));
     }
 
     public void setBookDao(BookDao bookDao) {
