@@ -1,4 +1,4 @@
-package pl.spring.demo.annotation.NullableId;
+package pl.spring.demo.annotation;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;

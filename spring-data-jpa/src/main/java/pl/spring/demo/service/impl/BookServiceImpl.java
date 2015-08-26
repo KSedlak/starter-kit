@@ -1,6 +1,6 @@
 package pl.spring.demo.service.impl;
 
-import pl.spring.demo.annotation.NullableId.NullableId;
+import pl.spring.demo.annotation.NullableId;
 import pl.spring.demo.dao.BookDao;
 import pl.spring.demo.dao.impl.BookDaoImpl;
 import pl.spring.demo.dao.mapper.BookMapper;

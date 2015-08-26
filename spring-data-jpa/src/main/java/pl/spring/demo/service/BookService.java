@@ -1,6 +1,6 @@
 package pl.spring.demo.service;
 
-import pl.spring.demo.annotation.NullableId.NullableId;
+import pl.spring.demo.annotation.NullableId;
 import pl.spring.demo.to.BookTo;
 import java.util.List;
 

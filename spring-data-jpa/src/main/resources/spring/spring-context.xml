@@ -14,11 +14,12 @@
          http://www.springframework.org/schema/context 
         http://www.springframework.org/schema/context/spring-context.xsd  ">
 
-  
-    <!-- AOP -->
+   	<!-- CONTEXT -->
+   	   	<context:annotation-config/>
+		<context:component-scan base-package="pl.spring.demo.*"/>
+   	 <!-- AOP -->
  		<aop:aspectj-autoproxy/>
- 	<!-- CONTEXT -->
-		<context:component-scan base-package="pl.spring.demo" />
+
     <!-- UTIL-->
    		  <util:properties id="applicationProperties" location="classpath:config/application.properties"/>
       

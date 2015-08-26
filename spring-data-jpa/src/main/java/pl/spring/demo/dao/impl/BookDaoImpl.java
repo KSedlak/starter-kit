@@ -1,7 +1,7 @@
 package pl.spring.demo.dao.impl;
 
 import pl.spring.demo.annotation.AutoGenenareteID;
-import pl.spring.demo.annotation.NullableId.NullableId;
+import pl.spring.demo.annotation.NullableId;
 import pl.spring.demo.common.Sequence;
 import pl.spring.demo.dao.BookDao;
 import pl.spring.demo.entity.BookEntity;

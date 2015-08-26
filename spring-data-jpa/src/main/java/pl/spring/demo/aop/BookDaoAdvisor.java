@@ -7,7 +7,7 @@ import org.aspectj.lang.reflect.MethodSignature;
 import org.springframework.aop.MethodBeforeAdvice;
 import org.springframework.stereotype.Component;
 
-import pl.spring.demo.annotation.NullableId.NullableId;
+import pl.spring.demo.annotation.NullableId;
 import pl.spring.demo.dao.impl.BookDaoImpl;
 import pl.spring.demo.entity.BookEntity;
 import pl.spring.demo.exception.BookNotNullIdException;
@@ -17,29 +17,23 @@ import java.lang.reflect.Method;
 
 @Component("bookDaoAdvisor")
 @Aspect
-public class BookDaoAdvisor implements MethodBeforeAdvice {
+public class BookDaoAdvisor{
 
 	
-	 @Before("execution(* save(..))")
-	//@Before("@annotation(pl.spring.demo.annotation.NullableId)") 
+
+	@Before("@annotation(pl.spring.demo.annotation.NullableId)")
 	public void beforeWithoutArgs(JoinPoint pjp) throws Throwable{
 		 final MethodSignature methodSignature = (MethodSignature)pjp.getSignature();
 		 
-		 Method method = methodSignature.getMethod();
 		 Object[] objects=pjp.getArgs();
 		 Object o =pjp.getTarget();
 
-		 before(method,objects,o);
+
+         checkNotNullId(objects[0], o);
+		 
 	 }
 
-	
-	public void before(Method method, Object[] objects, Object o) throws Throwable {
-        if (hasAnnotation(method, o, NullableId.class)) {
-            checkNotNullId(objects[0], o);
-        }
-  
-    }
-
+		
     private int checkNotNullId(Object o, Object classObject) {
     	
         if (o instanceof IdAware) {
@@ -61,12 +55,7 @@ public class BookDaoAdvisor implements MethodBeforeAdvice {
     		System.out.println(res);
     	}}
     }
-    private boolean hasAnnotation (Method method, Object o, Class annotationClazz) throws NoSuchMethodException {
-        boolean hasAnnotation = method.getAnnotation(annotationClazz) != null;
 
-        if (!hasAnnotation && o != null) {
-            hasAnnotation = o.getClass().getMethod(method.getName(), method.getParameterTypes()).getAnnotation(annotationClazz) != null;
-        }
-        return hasAnnotation;
-    }
+
+
 }
