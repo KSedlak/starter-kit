@@ -49,6 +49,5 @@ public class BookEntity implements IdAware {
 		}
 
 
-	
 
 }

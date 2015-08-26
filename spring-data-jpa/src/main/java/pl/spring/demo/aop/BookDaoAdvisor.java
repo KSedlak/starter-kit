@@ -1,6 +1,7 @@
 package pl.spring.demo.aop;
 
 import org.aspectj.lang.JoinPoint;
+import org.aspectj.lang.annotation.AfterReturning;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
 import org.aspectj.lang.reflect.MethodSignature;
@@ -21,7 +22,6 @@ public class BookDaoAdvisor implements MethodBeforeAdvice {
 	
 	 @Before("execution(* save(..))")
 	 public void beforeWithoutArgs(JoinPoint pjp) throws Throwable{
-		 System.out.println("brak");
 		 final String methodName = pjp.getSignature().getName();
 		 final MethodSignature methodSignature = (MethodSignature)pjp.getSignature();
 		 
@@ -37,20 +37,21 @@ public class BookDaoAdvisor implements MethodBeforeAdvice {
         if (hasAnnotation(method, o, NullableId.class)) {
             checkNotNullId(objects[0], o);
         }
+  
     }
 
-    private void checkNotNullId(Object o, Object classObject) {
+    private int checkNotNullId(Object o, Object classObject) {
     	
         if (o instanceof IdAware) {
         	if(((IdAware) o).getId() != null){
             throw new BookNotNullIdException();//id is set
             }
-
-       	setId(o, classObject);
-        
+        		setId(o, classObject);
         }
+        return 0;
     }
 
+ //   @AfterReturning("checkNotNullId()")
     private void setId(Object o,Object m){
        	if(m instanceof BookDaoImpl){
     		if(o instanceof BookEntity){//instanceof czy dobrze tak robic?

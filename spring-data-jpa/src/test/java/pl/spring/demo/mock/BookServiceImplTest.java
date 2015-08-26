@@ -5,9 +5,12 @@ package pl.spring.demo.mock;
  * All rights reserved
  */
 
+
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.*;
+import org.springframework.beans.factory.annotation.Autowired;
+
 import pl.spring.demo.dao.BookDao;
 import pl.spring.demo.dao.mapper.BookMapper;
 import pl.spring.demo.entity.BookEntity;
@@ -27,26 +30,46 @@ import java.util.Arrays;
  */
 public class BookServiceImplTest {
 
-    @InjectMocks
-    private BookServiceImpl bookService;
-    @Mock
-    private BookDao bookDao;
+	@InjectMocks
+	private BookServiceImpl bookService;
+	@Mock
+	@Autowired
+	private BookDao bookDao;
 
-    @Before
-    public void setUpt() {
-        MockitoAnnotations.initMocks(this);
-    }
+	private ArgumentMatcher<BookEntity> matchNullIdEnities;
 
-    @Test
+	@Before
+	public void setUpt() {
+		MockitoAnnotations.initMocks(this);
+		initNullIdMatcher();
+	}
+
+	private void initNullIdMatcher() {
+		matchNullIdEnities = new ArgumentMatcher<BookEntity>() {
+			@Override
+			public boolean matches(final Object argument) {
+				assertEquals(null, ((BookEntity) argument).getId());
+				return true;
+			}
+		};
+	}
+
+	@Test
     public void testShouldSaveBook() {
         // given
-        BookEntity book = new BookEntity(null,"Romeo i Julia",new ArrayList<AuthorTo>(Arrays.asList(new AuthorTo(1l, "Wiliam","Szekspir"))));
-        Mockito.when(bookDao.save(book)).thenReturn(new BookEntity(1L,"Romeo i Julia",new ArrayList<AuthorTo>(Arrays.asList(new AuthorTo(1l, "Wiliam","Szekspir")))));
+        BookEntity book =new BookEntity(null,"title",new ArrayList<AuthorTo>(Arrays.asList(new AuthorTo(1l, "firstName","LastName"))));
+        BookEntity bookWithID=new BookEntity(1l,"title",new ArrayList<AuthorTo>(Arrays.asList(new AuthorTo(1l, "firstName","LastName"))));
+        
+        BookTo in=BookMapper.mappedBookEntity(book);
+
         // when
 
-        BookTo result = bookService.saveBook(BookMapper.mappedBookEntity(book));
+        Mockito.when(bookDao.save(Mockito.argThat(matchNullIdEnities))).thenReturn(bookWithID);
+        
+        BookTo result = bookService.saveBook(in);
         // then
-        Mockito.verify(bookDao).save(book);
+        Mockito.verify(bookDao).save(Mockito.argThat(matchNullIdEnities));
         assertEquals(1L, result.getId().longValue());
     }
+
 }

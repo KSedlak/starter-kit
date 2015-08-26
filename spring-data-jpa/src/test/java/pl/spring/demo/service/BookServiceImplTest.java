@@ -1,5 +1,6 @@
 package pl.spring.demo.service;
 
+import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -50,6 +51,7 @@ public class BookServiceImplTest {
         assertNotNull(booksByTitle);
         assertTrue(booksByTitle.isEmpty());
     }
+    
     @Test
     public void testShouldFindAllBooksByAuthor() {
         // given
@@ -71,6 +73,7 @@ public class BookServiceImplTest {
         assertNotNull(booksByAuthor);
         assertTrue(booksByAuthor.isEmpty());
     }
+    
     @Test(expected = BookNotNullIdException.class)
     public void testShouldThrowBookNotNullIdException() {
         // given
@@ -79,6 +82,8 @@ public class BookServiceImplTest {
         // when
         bookService.saveBook(bookToSave);
         // then
-       // fail("test should throw BookNotNullIdException");
+        fail("test should throw BookNotNullIdException");
     }
+ 
+    
 }

@@ -15,6 +15,7 @@ public class BookMapper {
 
 	
 	public static BookTo mappedBookEntity(BookEntity be) {
+	
 		String authors = AuthorsListToString(be.getAuthors());
 		return new BookTo(be.getId(),be.getTitle(), authors);
 
@@ -35,7 +36,8 @@ public class BookMapper {
 			
 		for (int i = 0; i < authorsTable.length; i++) {
 			authors.add(new AuthorTo((long) i, ////////////////////////////////////// id?????????????
-					authorsTable[i].split(" ")[0], authorsTable[i].split(" ")[1]));
+				authorsTable[i].split(" ")[0], authorsTable[i].split(" ")[1]));
+			
 		}
 		return authors;
 		

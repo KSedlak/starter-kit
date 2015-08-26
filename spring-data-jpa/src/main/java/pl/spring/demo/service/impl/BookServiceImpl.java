@@ -1,6 +1,7 @@
 package pl.spring.demo.service.impl;
 
 import pl.spring.demo.dao.BookDao;
+import pl.spring.demo.dao.impl.BookDaoImpl;
 import pl.spring.demo.dao.mapper.BookMapper;
 import pl.spring.demo.entity.BookEntity;
 import pl.spring.demo.service.BookService;
@@ -27,6 +28,7 @@ public class BookServiceImpl implements BookService {
     	for(BookEntity b: bookDao.findAll()){
     		res.add(BookMapper.mappedBookEntity(b));
     	}
+
         return res;
     }
 
@@ -50,7 +52,10 @@ public class BookServiceImpl implements BookService {
 
     @Override
     public BookTo saveBook(BookTo book) {
-        return BookMapper.mappedBookEntity(bookDao.save(BookMapper.mappedBookTo(book)));
+
+       BookEntity toSave= BookMapper.mappedBookTo(book);
+        BookEntity saved= bookDao.save(toSave);
+        return  BookMapper.mappedBookEntity(saved);
     }
 
     public void setBookDao(BookDao bookDao) {
