@@ -11,8 +11,9 @@ public class Sequence {
 
     public long nextValue(Collection<? extends IdAware> existingIds) {
         long result = 0;
+
         for (IdAware nextExistingId : existingIds) {
-        
+            
             if (Long.compare(nextExistingId.getId(), result) > 0) {
                 result = nextExistingId.getId();
             }

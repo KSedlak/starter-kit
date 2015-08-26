@@ -65,8 +65,7 @@ public class BookDaoImpl implements BookDao {
 	@NullableId
 	@AutoGenenareteID
 	public BookEntity save(BookEntity book) {
-		ALL_BOOKS.add(book);
-		
+		ALL_BOOKS.add(book);	
 		return book;
 	}
 
