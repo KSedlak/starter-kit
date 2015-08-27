@@ -5,9 +5,7 @@ import pl.spring.demo.annotation.NullableId;
 import pl.spring.demo.common.Sequence;
 import pl.spring.demo.dao.BookDao;
 import pl.spring.demo.entity.BookEntity;
-import pl.spring.demo.to.AuthorTo;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -37,27 +35,22 @@ public class BookDaoImpl implements BookDao {
 		String bookTitle;
 		for (BookEntity be : ALL_BOOKS) {
 			bookTitle = be.getTitle().toLowerCase();
-			if (bookTitle.startsWith(title.toLowerCase())) {							
+			if (bookTitle.startsWith(title.toLowerCase())) {
 				result.add(be);
 			}
 		}
 		return result;
-
 	}
 
 	@Override
 	public List<BookEntity> findBooksByAuthor(String author) {
 		List<BookEntity> result = new ArrayList<BookEntity>();
-		String firstName = author.split(" ")[0];
-		String lastName = author.split(" ")[1];
-
-		for (BookEntity be : ALL_BOOKS) {
-			for (AuthorTo a : be.getAuthors()) {
-				if (firstName.equals(a.getFirstName()) && lastName.equals(a.getLastName())) {
-					result.add(be);
-				}
+		for (BookEntity book : ALL_BOOKS) {	
+			if(book.getAuthors().toLowerCase().contains(author.toLowerCase())){
+				result.add(book);
 			}
 		}
+
 		return result;
 	}
 
@@ -65,12 +58,8 @@ public class BookDaoImpl implements BookDao {
 	@NullableId
 	@AutoGenenareteID
 	public BookEntity save(BookEntity book) {
-		ALL_BOOKS.add(book);	
+		ALL_BOOKS.add(book);
 		return book;
-	}
-
-	public void setSequence(Sequence sequence) {
-		this.sequence = sequence;
 	}
 
 	public Set<BookEntity> getALL_BOOKS() {
@@ -82,17 +71,11 @@ public class BookDaoImpl implements BookDao {
 	}
 
 	private void addTestBooks() {
-		ALL_BOOKS.add(new BookEntity(1L, "Romeo i Julia",
-				new ArrayList<AuthorTo>(Arrays.asList(new AuthorTo(1l, "Wiliam", "Szekspir")))));
-		ALL_BOOKS.add(new BookEntity(2L, "Opium w rosole",
-				new ArrayList<AuthorTo>(Arrays.asList(new AuthorTo(2l, "Hanna", "Szekspir")))));
-		ALL_BOOKS.add(new BookEntity(3L, "Przygody Odyseusz",
-				new ArrayList<AuthorTo>(Arrays.asList(new AuthorTo(3l, "Jan", "Parandowski")))));
-		ALL_BOOKS.add(new BookEntity(4L, "Awantura w Niekłaju",
-				new ArrayList<AuthorTo>(Arrays.asList(new AuthorTo(4l, "Edmund", "Niziurski")))));
-		ALL_BOOKS.add(new BookEntity(5L, "Pan Samochodzik i Fantomas",
-				new ArrayList<AuthorTo>(Arrays.asList(new AuthorTo(5l, "Zbigniew", "Nienacki")))));
-		ALL_BOOKS.add(new BookEntity(6L, "Zemsta",
-				new ArrayList<AuthorTo>(Arrays.asList(new AuthorTo(6l, "Aleksander", "Fredro")))));
+		ALL_BOOKS.add(new BookEntity(1L, "Romeo i Julia", "Wiliam Szekspir"));
+		ALL_BOOKS.add(new BookEntity(2L, "Opium w rosole", "Hanna Ożogowska"));
+		ALL_BOOKS.add(new BookEntity(3L, "Przygody Odyseusza", "Jan Parandowski"));
+		ALL_BOOKS.add(new BookEntity(4L, "Awantura w Niekłaju", "Edmund Niziurski"));
+		ALL_BOOKS.add(new BookEntity(5L, "Pan Samochodzik i Fantomas", "Zbigniew Nienacki"));
+		ALL_BOOKS.add(new BookEntity(6L, "Zemsta", "Aleksander Fredro"));
 	}
 }

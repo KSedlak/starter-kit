@@ -1,21 +1,19 @@
 package pl.spring.demo.entity;
 
 
-import java.util.ArrayList;
-
 import pl.spring.demo.to.*;
 
 public class BookEntity implements IdAware {
 		private String title;
 	    private Long id;
-	    ArrayList<AuthorTo> authors;
+	    private String authors;
 	    
 	    public BookEntity() {
 			
 		}
 	    
 
-	    public BookEntity(Long id, String title, ArrayList<AuthorTo> authors) {
+	    public BookEntity(Long id, String title,String authors) {
 	        this.id = id;
 	        this.title = title;
 	        this.authors = authors;
@@ -39,14 +37,16 @@ public class BookEntity implements IdAware {
 	    }
 
 
-		public ArrayList<AuthorTo> getAuthors() {
+		public String getAuthors() {
 			return authors;
 		}
 
 
-		public void setAuthors(ArrayList<AuthorTo> authors) {
+		public void setAuthors(String authors) {
 			this.authors = authors;
 		}
+
+
 
 
 

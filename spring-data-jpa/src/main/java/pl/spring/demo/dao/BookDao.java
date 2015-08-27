@@ -1,7 +1,6 @@
 package pl.spring.demo.dao;
 
 import pl.spring.demo.entity.BookEntity;
-import pl.spring.demo.to.BookTo;
 
 import java.util.List;
 

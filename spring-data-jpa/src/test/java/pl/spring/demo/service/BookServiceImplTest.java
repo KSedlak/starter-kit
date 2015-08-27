@@ -1,113 +1,138 @@
 package pl.spring.demo.service;
 
-import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import pl.spring.demo.exception.BookNotNullIdException;
+import pl.spring.demo.to.AuthorTo;
 import pl.spring.demo.to.BookTo;
-
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
-
 import static org.junit.Assert.*;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations ={"classpath:spring/spring-context.xml"})
+@ContextConfiguration(locations = { "classpath:spring/spring-context.xml" })
 public class BookServiceImplTest {
 
-    @Autowired
-    private BookService bookService;
+	@Autowired
+	private BookService bookService;
 
-    @Test
-    public void testShouldFindAllBooks() {
-        // when
-        List<BookTo> allBooks = bookService.findAllBooks();
-        // then
-        assertNotNull(allBooks);
-        assertFalse(allBooks.isEmpty());
-        assertEquals(7, allBooks.size());
-    }
+	@Test
+	public void testShouldFindAllBooks() {
+		// when
+		List<BookTo> allBooks = bookService.findAllBooks();
+		// then
+		assertNotNull(allBooks);
+		assertFalse(allBooks.isEmpty());
+		assertEquals(7, allBooks.size());
+	}
 
-    @Test
-    public void testShouldFindAllBooksByTitle() {
-        // given
-        final String title = "Opium w rosole";
-        // when
-        List<BookTo> booksByTitle = bookService.findBooksByTitle(title);
-        // then
-        assertNotNull(booksByTitle);
-        assertFalse(booksByTitle.isEmpty());
-    }
-    
-    @Test
-    public void testShouldFindAllBooksByTitlePrefix() {
-        // given
-        final String title = "opium";
-        // when
-        List<BookTo> booksByTitle = bookService.findBooksByTitle(title);
-        // then
-        assertNotNull(booksByTitle);
-        assertFalse(booksByTitle.isEmpty());
-    }
-    
-    @Test
-    public void testShouldFindAllBooksByTitleNotFound() {
-        // given
-        final String title = "testowe zapytanie";
-        // when
-        List<BookTo> booksByTitle = bookService.findBooksByTitle(title);
-        // then
-        assertNotNull(booksByTitle);
-        assertTrue(booksByTitle.isEmpty());
-    }
-    
-    @Test
-    public void testShouldFindAllBooksByAuthor() {
-        // given
-        final String auth = "Zbigniew Nienacki";
-        // when
-        List<BookTo> booksByAuthor= bookService.findBooksByAuthor(auth);
-        // then
-        assertNotNull(booksByAuthor);
-        assertFalse(booksByAuthor.isEmpty());
-    }
+	@Test
+	public void testShouldFindAllBooksByTitle() {
+		// given
+		final String title = "Opium w rosole";
+		// when
+		List<BookTo> booksByTitle = bookService.findBooksByTitle(title);
+		// then
+		assertNotNull(booksByTitle);
+		assertFalse(booksByTitle.isEmpty());
+	}
 
-    @Test
-    public void testShouldFindAllBooksByAuthorNotFound() {
-        // given
-        final String auth = "Zbigniew Abacki";
-        // when
-        List<BookTo> booksByAuthor= bookService.findBooksByAuthor(auth);
-        // then
-        assertNotNull(booksByAuthor);
-        assertTrue(booksByAuthor.isEmpty());
-    }
-    
-    @Test(expected = BookNotNullIdException.class)
-    public void testShouldThrowBookNotNullIdException() {
-        // given
-        final BookTo bookToSave = new BookTo();
-        bookToSave.setId(22L);
-        // when
-        bookService.saveBook(bookToSave);
-        // then
-        fail("test should throw BookNotNullIdException");
-    }
-    
-    @Test
-    public void testShouldIncreaseId() {
-        // given
-       BookTo bookToSave = new BookTo(null, "as","sds sd");
-        // when
-        long s=(long)bookService.findAllBooks().size();
-        s=s+1;
-       BookTo res= bookService.saveBook(bookToSave);
-      
-        // then
-      assertEquals(s, res.getId().longValue());
-    }
- 
-    
+	@Test
+	public void testShouldFindAllBooksByTitlePrefix() {
+		// given
+		final String title = "opium";
+		// when
+		List<BookTo> booksByTitle = bookService.findBooksByTitle(title);
+		// then
+		assertNotNull(booksByTitle);
+		assertFalse(booksByTitle.isEmpty());
+	}
+
+	@Test
+	public void testShouldFindAllBooksByTitleNotFound() {
+		// given
+		final String title = "testowe zapytanie";
+		// when
+		List<BookTo> booksByTitle = bookService.findBooksByTitle(title);
+		// then
+		assertNotNull(booksByTitle);
+		assertTrue(booksByTitle.isEmpty());
+	}
+
+	@Test
+	public void testShouldFindAllBooksByAuthor() {
+		// given
+		final String auth = "Zbigniew Nienacki";
+		// when
+		List<BookTo> booksByAuthor = bookService.findBooksByAuthor(auth);
+		// then
+		assertNotNull(booksByAuthor);
+		assertFalse(booksByAuthor.isEmpty());
+	}
+
+	@Test
+	public void testShouldFindAllBooksByAuthorFirtstNamePrefix() {
+		// given
+		final String auth = "Zbig";
+		// when
+		List<BookTo> booksByAuthor = bookService.findBooksByAuthor(auth);
+		BookTo book = booksByAuthor.get(0);
+		// then
+		assertNotNull(booksByAuthor);
+		assertFalse(booksByAuthor.isEmpty());
+		assertEquals("Pan Samochodzik i Fantomas",book.getTitle());
+	}
+
+	@Test
+	public void testShouldFindAllBooksByAuthorLastNamePrefix() {
+		// given
+		final String auth = "Nien";
+		// when
+		List<BookTo> booksByAuthor = bookService.findBooksByAuthor(auth);
+		BookTo book =booksByAuthor.get(0);
+		// then
+		assertNotNull(booksByAuthor);
+		assertFalse(booksByAuthor.isEmpty());
+		assertEquals("Pan Samochodzik i Fantomas",book.getTitle());
+	}
+
+	@Test
+	public void testShouldFindAllBooksByAuthorNotFound() {
+		// given
+		final String auth = "Zbigniew Abacki";
+		// when
+		List<BookTo> booksByAuthor = bookService.findBooksByAuthor(auth);
+		// then
+		assertNotNull(booksByAuthor);
+		assertTrue(booksByAuthor.isEmpty());
+	}
+
+	@Test(expected = BookNotNullIdException.class)
+	public void testShouldThrowBookNotNullIdException() {
+		// given
+		final BookTo bookToSave = new BookTo();
+		bookToSave.setId(22L);
+		// when
+		bookService.saveBook(bookToSave);
+		// then
+		fail("test should throw BookNotNullIdException");
+	}
+
+	@Test
+	public void testShouldIncreaseId() {
+		// given
+		BookTo bookToSave = new BookTo(null, "title",
+				new ArrayList<>(Arrays.asList(new AuthorTo(1L, "Zbigniew", "Nienacki"))));
+		// when
+		long s = (long) bookService.findAllBooks().size();
+		s = s + 1;//increase size
+		BookTo res = bookService.saveBook(bookToSave);
+		// then
+		assertEquals(s, res.getId().longValue());
+	}
+
 }

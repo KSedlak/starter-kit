@@ -5,10 +5,7 @@ public class AuthorTo implements IdAware  {
     private String firstName;
     private String lastName;
 
-    
-    public AuthorTo(){
-    	
-    }
+   
 
     public AuthorTo(Long id, String firstName, String lastName) {
 		super();
