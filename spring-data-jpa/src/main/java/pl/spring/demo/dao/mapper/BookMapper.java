@@ -1,14 +1,13 @@
 package pl.spring.demo.dao.mapper;
 
 import java.util.ArrayList;
-import org.springframework.stereotype.Component;
 import pl.spring.demo.entity.BookEntity;
 import pl.spring.demo.to.AuthorTo;
 import pl.spring.demo.to.BookTo;
 
 
 
-@Component(value="bookMap")
+
 public class BookMapper {
 
 	private static String separator = ", ";
