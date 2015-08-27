@@ -14,7 +14,7 @@ import pl.spring.demo.to.IdAware;
 public class BookDaoAdvisor {
 
 	@Before("@annotation(pl.spring.demo.annotation.NullableId)")
-	public void checkBeforeID(JoinPoint pjp) throws Throwable {
+	public void checkBeforeID(JoinPoint pjp){
 		
 		checkId( pjp.getArgs()[0]);
 
