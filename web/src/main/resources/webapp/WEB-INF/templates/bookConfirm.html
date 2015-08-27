@@ -21,8 +21,8 @@
 	      <td th:text="${book.title}"/>
 	      <td th:text="${book.authors}"/>
 	      <td>
-	        <a href="#" data-th-href="@{/books/delete(id=${book.id},phase=stage)}">
-	        <button>Usun</button>
+	        <a href="#" data-th-href="@{/books/delete(id=${book.id},phase=confirm)}">
+	        <button>Czy napewno?</button>
 	        </a>
 	      </td>
     </tr>

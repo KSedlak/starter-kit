@@ -15,4 +15,6 @@ public class BookDaoImpl extends AbstractDao<BookEntity, Long> implements BookDa
         query.setParameter("title", title);
         return query.getResultList();
     }
+
+
 }

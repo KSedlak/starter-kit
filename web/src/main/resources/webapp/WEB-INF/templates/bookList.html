@@ -5,8 +5,29 @@
     <title>Lista książek</title>
 </head>
 <body>
-    <div th:each="book : ${books}">
-        <p th:text="${book.title}">title</p>
+    <div>
+       <table>
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>Tytul</th>
+      <th >Autor</th>
+       <th ></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr th:each="book : ${books}">
+	 	  <td th:text="${book.id}"/>
+	      <td th:text="${book.title}"/>
+	      <td th:text="${book.authors}"/>
+	      <td>
+	        <a href="#" data-th-href="@{/books/delete(id=${book.id},phase=stage)}">
+	        <button>Usun</button>
+	        </a>
+	      </td>
+    </tr>
+  </tbody>
+</table>
     </div>
 </body>
 </html>

@@ -17,5 +17,7 @@ public class SimpleController {
         parameters.put("booksCount", 1);
         return "home";
     }
+    
+
 }
 
