@@ -41,29 +41,32 @@ public class BookController {
     }
 
     @RequestMapping(value = {"/",""}, method = RequestMethod.POST)
-    public String bookLadd() {
-       BookTo book =new BookTo(4L, "Potop", "Henryk Sienkiewicz");
+    public String bookLadd(
+    		@RequestParam(value="title", required=true) String title,
+    		@RequestParam(value="author", required=true) String author) {
+       BookTo book =new BookTo(null, title, author);
     	bookService.saveBook(book);
         return "bookList";
     }
     
 
     @RequestMapping(value = {"/",""}, method = RequestMethod.PUT)
-    public String bookLEdit() {
-    	Long id=4L;
-     	BookTo book=bookService.findBookById(id);
-     	book.setTitle("Krzyzacy");
-    	bookService.saveBook(book);
-        return "bookList";
-    }
+    public String bookLEdit( 
+    	@RequestParam(value="id", required=true) Long id,
+		@RequestParam(value="title", required=true) String title,
+		@RequestParam(value="author", required=true) String author) 
+    {
+   BookTo book =bookService.findBookById(id);
+   book.setAuthors(author);
+   book.setTitle(title);
+	bookService.saveBook(book);
+    return "bookList";
+}
     
     @RequestMapping(value = {"/",""}, method = RequestMethod.DELETE)
-    public String bookLDelete2() {
-    	Long id=4L;
+    public String bookLDelete2(	@RequestParam(value="id", required=true) Long id) {
      	BookTo book=bookService.findBookById(id);
-     	EmbeddedJetty.getLogger().debug("size before: "+bookService.findAllBooks().size());
      	bookService.deleteBook(book);
-     	EmbeddedJetty.getLogger().debug("size after: "+bookService.findAllBooks().size());
         return "bookList";
     }
     
