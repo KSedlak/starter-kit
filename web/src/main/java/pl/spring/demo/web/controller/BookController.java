@@ -18,55 +18,28 @@ import java.util.List;
 import java.util.Map;
 
 @Controller
-
+@RequestMapping(value = "/books")
 public class BookController {
     @Autowired
     private BookService bookService;
     
     private static final Logger logger = LoggerFactory.getLogger(EmbeddedJetty.class);
     
-    @RequestMapping(value = "/books", method = RequestMethod.GET)
+    @RequestMapping(value = {"/",""}, method = RequestMethod.GET)
     public String bookList(Map<String, Object> params) {
         final List<BookTo> allBooks = bookService.findAllBooks();
         params.put("books", allBooks);
         return "bookList";
     }
+    @RequestMapping(value = "/d", method = RequestMethod.GET)
+    public String bookDelete(Map<String, Object> params,
+    		@RequestParam(value="id", required=true) Long idBook) {
+    	BookTo book=bookService.findBookById(idBook);
+    	String msg="Ksiazka o tytule "+book.getTitle()+" zostala usunieta.";
+        params.put("bookDeleteMsg", msg);
+        return "bookDelete";
+    }
 
     
-    @RequestMapping(value="/books/delete", method=RequestMethod.GET)
-    public ModelAndView deleteStrategyPage(
-    		@RequestParam(value="id", required=true) Integer id, 
-            @RequestParam(value="phase", required=true) String phase
-            ) {
-    	
-    	
-        ModelAndView modelAndView = null;
-        BookTo book = bookService.findBookById(id.longValue());
-    	logger.info("Strategy/delete-GET | id = " + id + " | phase = " + phase + " | " + book.getTitle());
-
-     
-        if (phase.equals("stage")) {
-            modelAndView = new ModelAndView("bookConfirm");
-         
-            String message = "książka o tytule "+book.getTitle()+" została usunięta";
-
-
-            modelAndView.addObject("message", message);
-        }
-     
- /*       if (phase.equals("confirm")) {
-            modelAndView = new ModelAndView("redirect:/strategy/list");
-            strategyService.deleteStrategy(id);
-            String message = "Strategy " + boook.getId() + " was successfully deleted";
-            modelAndView.addObject("message", message);
-        }
-     
-        if (phase.equals("cancel")) {
-            modelAndView = new ModelAndView("redirect:/strategy/list");
-            String message = "Strategy delete was cancelled.";
-            modelAndView.addObject("message", message);
-        }*/
-     
-        return modelAndView;
-    }
+    
 }
