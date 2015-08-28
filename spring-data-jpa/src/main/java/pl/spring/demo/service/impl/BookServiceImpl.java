@@ -46,10 +46,11 @@ public class BookServiceImpl implements BookService {
 	    return BookMapper.map(bookRepository.findOne(id));
 	}
 
-	@Override
+    @Override
+    @Transactional(readOnly = false)
 	public void deleteBook(BookTo book) {
 		  BookEntity entity = BookMapper.map(book);
-		bookRepository.delete(entity);
+		  bookRepository.delete(entity);
 		
 	}
 }

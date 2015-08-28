@@ -13,8 +13,15 @@
 *.iml
 .idea/*
 log/
-target/
+*/target/*
 
 # virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
 hs_err_pid*
 web/target/*
+/web/target/*
+spring-data-jpa/target/surefire-reports/pl.spring.demo.repository.BookRepositoryTest.txt
+spring-data-jpa/target/surefire-reports/TEST-pl.spring.demo.repository.BookRepositoryTest.xml
+web/target/surefire-reports/pl.spring.demo.web.controller.SimpleControllerTest.txt
+web/target/surefire-reports/pl.spring.demo.web.rest.BookRestServiceTest.txt
+web/target/surefire-reports/TEST-pl.spring.demo.web.controller.SimpleControllerTest.xml
+web/target/surefire-reports/TEST-pl.spring.demo.web.rest.BookRestServiceTest.xml
