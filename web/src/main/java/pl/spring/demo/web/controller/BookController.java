@@ -9,6 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 import pl.spring.demo.service.BookService;
 import pl.spring.demo.to.BookTo;
@@ -23,8 +24,7 @@ public class BookController {
     @Autowired
     private BookService bookService;
     
-    private static final Logger logger = LoggerFactory.getLogger(EmbeddedJetty.class);
-    
+
     @RequestMapping(value = {"/",""}, method = RequestMethod.GET)
     public String bookList(Map<String, Object> params) {
         final List<BookTo> allBooks = bookService.findAllBooks();
@@ -40,6 +40,32 @@ public class BookController {
         return "bookDelete";
     }
 
+    @RequestMapping(value = {"/",""}, method = RequestMethod.POST)
+    public String bookLadd() {
+       BookTo book =new BookTo(4L, "Potop", "Henryk Sienkiewicz");
+    	bookService.saveBook(book);
+        return "bookList";
+    }
+    
+
+    @RequestMapping(value = {"/",""}, method = RequestMethod.PUT)
+    public String bookLEdit() {
+    	Long id=4L;
+     	BookTo book=bookService.findBookById(id);
+     	book.setTitle("Krzyzacy");
+    	bookService.saveBook(book);
+        return "bookList";
+    }
+    
+    @RequestMapping(value = {"/",""}, method = RequestMethod.DELETE)
+    public String bookLDelete2() {
+    	Long id=4L;
+     	BookTo book=bookService.findBookById(id);
+     	EmbeddedJetty.getLogger().debug("size before: "+bookService.findAllBooks().size());
+     	bookService.deleteBook(book);
+     	EmbeddedJetty.getLogger().debug("size after: "+bookService.findAllBooks().size());
+        return "bookList";
+    }
     
     
 }

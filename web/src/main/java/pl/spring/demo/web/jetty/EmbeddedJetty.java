@@ -51,5 +51,7 @@ public class EmbeddedJetty {
         context.getEnvironment().setDefaultProfiles(DEFAULT_PROFILE);
         return context;
     }
-
+    public static Logger getLogger() {
+		return logger;
+	}
 }

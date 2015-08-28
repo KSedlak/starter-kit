@@ -42,4 +42,28 @@ public class BookRepositoryTest {
         assertFalse(booksEntity.isEmpty());
         assertEquals("Pierwsza książka", booksEntity.get(0).getTitle());
     }
+    
+    @Test
+    public void testShouldAddBook() {
+        // given
+    		BookEntity book = new BookEntity(null,"Potop", "Henryk Sienkiewicz");
+        // when
+    		int sizeBefore=bookRepository.findAll().size();
+    		bookRepository.save(book);
+    		int sizeAfter=bookRepository.findAll().size();
+        // then
+        assertEquals(sizeBefore+1,sizeAfter);
+    }
+    
+    @Test
+    public void testShouldDeleteBook() {
+        // given
+    		BookEntity book = bookRepository.findAll().get(0);
+        // when
+    		int sizeBefore=bookRepository.findAll().size();
+    		bookRepository.delete(book);
+    		int sizeAfter=bookRepository.findAll().size();
+        // then
+        assertEquals(sizeBefore-1,sizeAfter);
+    }
 }
