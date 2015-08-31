@@ -114,9 +114,7 @@ public class BookRestServiceTest {
         Mockito.verify(bookService).saveBook(Mockito.argThat(matchNullIdBookTo));
 
         response.andExpect(status().isOk());
-  
-               
-        	
+      	
     }
     
     @Test
@@ -124,7 +122,7 @@ public class BookRestServiceTest {
     	//given
         long id=2L;
     	BookTo book =new BookTo(id,"Potop", "Henryk Sienkiewicz");
-    	   Mockito.when(bookService.findBookById(id)).thenReturn(book);
+    	   Mockito.when(bookService.findBookById(id)).thenReturn(book);//find book to delete
          // when
          ResultActions response = this.mockMvc.perform(delete("/books")
                  .param("id", "2")
