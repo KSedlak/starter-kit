@@ -26,7 +26,7 @@ public class BookController {
         params.put("books", allBooks);
         return "bookList";
     }
-    @RequestMapping(value = "/Confirmation", method = RequestMethod.GET)
+    @RequestMapping(value = "/Confirmation", method = RequestMethod.GET)///called by button
     public String bookDelete(Map<String, Object> params,
     		@RequestParam(value="id", required=true) Long idBook) {
     	

@@ -21,13 +21,13 @@ public class BookRestService {
 		return bookService.findBooksByTitle(titlePrefix);
 	}
 
-	@RequestMapping(value = "/book", method = RequestMethod.POST)//orgina
+	@RequestMapping(value = "/book", method = RequestMethod.POST)//original method to JSON test
 	public BookTo saveBook(@RequestBody BookTo book) {
 		return bookService.saveBook(book);
 	}
 
-	@RequestMapping(value = { "/books", "/books/" }, method = RequestMethod.POST)
-	public ModelAndView bookLadd(@RequestParam(value = "title", required = true) String title,
+	@RequestMapping(value = { "/books", "/books/" }, method = RequestMethod.POST)///called by POST request on list
+	public ModelAndView bookAdd(@RequestParam(value = "title", required = true) String title,
 			@RequestParam(value = "author", required = true) String author) {
 		
 		BookTo book = new BookTo(null, title, author);
@@ -36,8 +36,8 @@ public class BookRestService {
 		return new ModelAndView("bookList");
 	}
 
-	@RequestMapping(value = { "/books", "/books/" }, method = RequestMethod.PUT)
-	public ModelAndView bookLEdit(@RequestParam(value = "id", required = true) Long id,
+	@RequestMapping(value = { "/books", "/books/" }, method = RequestMethod.PUT)///called by PUT request on list
+	public ModelAndView bookEdit(@RequestParam(value = "id", required = true) Long id,
 			@RequestParam(value = "title", required = false) String title,
 			@RequestParam(value = "author", required = false) String author) {
 		
@@ -50,7 +50,7 @@ public class BookRestService {
 
 	}
 
-	@RequestMapping(value = { "/books", "/books/" }, method = RequestMethod.DELETE)
+	@RequestMapping(value = { "/books", "/books/" }, method = RequestMethod.DELETE)///called by DELETE request on list
 	public ModelAndView bookDelete(@RequestParam(value = "id", required = true) Long id) {
 		
 		BookTo book = bookService.findBookById(id);
