@@ -21,7 +21,7 @@ public class BookRestService {
 		return bookService.findBooksByTitle(titlePrefix);
 	}
 
-	@RequestMapping(value = "/book", method = RequestMethod.POST)
+	@RequestMapping(value = "/book", method = RequestMethod.POST)//orgina
 	public BookTo saveBook(@RequestBody BookTo book) {
 		return bookService.saveBook(book);
 	}
@@ -51,7 +51,7 @@ public class BookRestService {
 	}
 
 	@RequestMapping(value = { "/books", "/books/" }, method = RequestMethod.DELETE)
-	public ModelAndView bookLDelete2(@RequestParam(value = "id", required = true) Long id) {
+	public ModelAndView bookDelete(@RequestParam(value = "id", required = true) Long id) {
 		
 		BookTo book = bookService.findBookById(id);
 		bookService.deleteBook(book);
