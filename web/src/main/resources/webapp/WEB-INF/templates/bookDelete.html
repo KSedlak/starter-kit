@@ -3,12 +3,13 @@
 <head lang="en">
     <meta charset="UTF-8"/>
     <title>Lista książek</title>
+    <link rel="stylesheet" th:href="@{/static/application.css}" href="/static/application.css" />
 </head>
 <body>
-<div>
+<div class="msg">
 		<p th:text="${bookDeleteMsg}"/>
 			        <a href="#" th:href="@{/books/}">
-	        <button>Back</button>
+	        <button class="button">Powrot do listy</button>
 	        </a>
     </div>
 </body>

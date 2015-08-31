@@ -3,11 +3,12 @@
 <head lang="en">
     <meta charset="UTF-8"/>
     <title>Lista książek</title>
+    <link rel="stylesheet" th:href="@{/static/application.css}" href="/static/application.css" />
 </head>
 <body>
     <div>
-       <table>
-  <thead>
+       <table class="booksTable">
+  <thead class="booksTableHd">
     <tr>
       <th>ID</th>
       <th>Tytul</th>
@@ -22,7 +23,7 @@
 	      <td th:text="${book.authors}"/>
 	      <td>
 	        <a href="#"  th:href="@{/books/Confirmation(id=${book.id})}">
-	        <button>Usun</button>
+	        <button class="button">Usun</button>
 	        </a>
 	      </td>
     </tr>
