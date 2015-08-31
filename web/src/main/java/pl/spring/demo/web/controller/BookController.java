@@ -29,9 +29,10 @@ public class BookController {
     @RequestMapping(value = "/Confirmation", method = RequestMethod.GET)
     public String bookDelete(Map<String, Object> params,
     		@RequestParam(value="id", required=true) Long idBook) {
+    	
     	BookTo book=bookService.findBookById(idBook);
-
 		bookService.deleteBook(book);
+		
     	String msg="Ksiazka o tytule "+book.getTitle()+" zostala usunieta.";
         params.put("bookDeleteMsg", msg);
         return "bookDelete";

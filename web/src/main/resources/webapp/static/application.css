@@ -35,13 +35,7 @@
 	font-weight:bold;
 	vertical-align: center;
 	text-align:cenetr;
-  	margin-left: auto ;
- 	 margin-right: auto ;
-	
-}
-
-.msg {
-    color: #00529B;
+	color: #00529B;
     background-color: #BDE5F8;
     background-image: url('http://icons.iconarchive.com/icons/rimshotdesign/nod2/96/Toolbar-Regular-Get-Info-icon.png');
     border: 1px solid;
@@ -50,6 +44,8 @@
     padding:10px 10px 10px 10px;
     background-repeat: no-repeat;
 }
+
+
 .button:hover {
 	background:-webkit-gradient(linear, left top, left bottom, color-stop(0.05, #019ad2), color-stop(1, #33bdef));
 	background:-moz-linear-gradient(top, #019ad2 5%, #33bdef 100%);
@@ -92,7 +88,30 @@
 	width:100%;
 	height:100%;
 	margin:0px;padding:0px;
-}.booksTable tr:last-child td:last-child {
+	
+}
+.booksTableHead{
+		background:-o-linear-gradient(bottom, #0057af 5%, #007fff 100%);	background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #0057af), color-stop(1, #007fff) );
+	background:-moz-linear-gradient( center top, #0057af 5%, #007fff 100% );
+	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr="#0057af", endColorstr="#007fff");	background: -o-linear-gradient(top,#0057af,007fff);
+
+	background-color:#0057af;
+	border:0px solid #000000;
+	text-align:center;
+	border-width:0px 0px 1px 1px;
+	font-size:24px;
+	font-family:Arial;
+	font-weight:bold;
+	color:#fcf9f9;
+}
+.booksTableHead:hover {
+	background:-o-linear-gradient(bottom, #0057af 5%, #007fff 100%);	background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #0057af), color-stop(1, #007fff) );
+	background:-moz-linear-gradient( center top, #0057af 5%, #007fff 100% );
+	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr="#0057af", endColorstr="#007fff");	background: -o-linear-gradient(top,#0057af,007fff);
+
+	background-color:#0057af;
+}
+.booksTable tr:last-child td:last-child {
 	-moz-border-radius-bottomright:0px;
 	-webkit-border-bottom-right-radius:0px;
 	border-bottom-right-radius:0px;
@@ -138,25 +157,5 @@
 }.booksTable tr:last-child td:last-child{
 	border-width:0px 0px 0px 0px;
 }
-.booksTableHd{
-		background:-o-linear-gradient(bottom, #0057af 5%, #007fff 100%);	background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #0057af), color-stop(1, #007fff) );
-	background:-moz-linear-gradient( center top, #0057af 5%, #007fff 100% );
-	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr="#0057af", endColorstr="#007fff");	background: -o-linear-gradient(top,#0057af,007fff);
 
-	background-color:#0057af;
-	border:0px solid #000000;
-	text-align:center;
-	border-width:0px 0px 1px 1px;
-	font-size:24px;
-	font-family:Arial;
-	font-weight:bold;
-	color:#fcf9f9;
-}
-.booksTableHd:hover {
-	background:-o-linear-gradient(bottom, #0057af 5%, #007fff 100%);	background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #0057af), color-stop(1, #007fff) );
-	background:-moz-linear-gradient( center top, #0057af 5%, #007fff 100% );
-	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr="#0057af", endColorstr="#007fff");	background: -o-linear-gradient(top,#0057af,007fff);
-
-	background-color:#0057af;
-}
 }
