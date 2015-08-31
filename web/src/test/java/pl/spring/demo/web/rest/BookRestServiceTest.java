@@ -1,8 +1,10 @@
 package pl.spring.demo.web.rest;
 
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.mockito.ArgumentMatcher;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -16,13 +18,11 @@ import org.springframework.web.context.WebApplicationContext;
 import pl.spring.demo.service.BookService;
 import pl.spring.demo.to.BookTo;
 import pl.spring.demo.web.utils.FileUtils;
-
 import java.io.File;
 import java.util.Arrays;
-
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -35,6 +35,7 @@ public class BookRestServiceTest {
     private BookService bookService;
     @Autowired
     private WebApplicationContext wac;
+    private ArgumentMatcher<BookTo> matchNullIdBookTo;
 
     private MockMvc mockMvc;
 
@@ -42,6 +43,17 @@ public class BookRestServiceTest {
     public void setUp() {
         Mockito.reset(bookService);
         this.mockMvc = MockMvcBuilders.webAppContextSetup(this.wac).build();
+        initNullIdMatcher();
+    }
+    
+    private void initNullIdMatcher() {
+		matchNullIdBookTo= new ArgumentMatcher<BookTo>() {
+			@Override
+			public boolean matches(final Object argument) {
+				Assert.assertEquals(null, ((BookTo)argument).getId());
+				return true;
+			}
+		};
     }
 
     @Test
@@ -84,5 +96,44 @@ public class BookRestServiceTest {
                 .content(json.getBytes()));
         // then
         response.andExpect(status().isOk());
+    }
+    
+    @Test
+    public void testAddBook() throws Exception {
+        // given
+    		
+    	BookTo book=new BookTo(null,"Potop", "author");
+        Mockito.when(bookService.saveBook(Mockito.argThat(matchNullIdBookTo))).thenReturn(new BookTo(1L, "Potop", "author"));
+
+        // when
+        ResultActions response = this.mockMvc.perform(post("/books")
+                .param("title", book.getTitle())
+                .param("author",book.getAuthors()));
+
+        // then
+        Mockito.verify(bookService).saveBook(Mockito.argThat(matchNullIdBookTo));
+
+        response.andExpect(status().isOk());
+  
+               
+        	
+    }
+    
+    @Test
+    public void testDeleteBook() throws Exception {		
+    	//given
+        long id=2L;
+    	BookTo book =new BookTo(id,"Potop", "Henryk Sienkiewicz");
+    	   Mockito.when(bookService.findBookById(id)).thenReturn(book);
+         // when
+         ResultActions response = this.mockMvc.perform(delete("/books")
+                 .param("id", "2")
+       );
+         // then
+
+         Mockito.verify(bookService).deleteBook(book);
+
+         response.andExpect(status().isOk());          
+        	
     }
 }

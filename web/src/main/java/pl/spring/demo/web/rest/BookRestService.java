@@ -13,6 +13,7 @@ import java.util.List;
 @RestController
 public class BookRestService {
 
+	
 	@Autowired
 	private BookService bookService;
 
@@ -36,8 +37,8 @@ public class BookRestService {
 
 	@RequestMapping(value = { "/books", "/books/" }, method = RequestMethod.PUT)
 	public ModelAndView bookLEdit(@RequestParam(value = "id", required = true) Long id,
-			@RequestParam(value = "title", required = true) String title,
-			@RequestParam(value = "author", required = true) String author) {
+			@RequestParam(value = "title", required = false) String title,
+			@RequestParam(value = "author", required = false) String author) {
 		BookTo book = bookService.findBookById(id);
 		book.setAuthors(author);
 		book.setTitle(title);
