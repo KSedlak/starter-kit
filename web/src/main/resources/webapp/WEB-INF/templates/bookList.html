@@ -3,10 +3,28 @@
 <head lang="en">
     <meta charset="UTF-8"/>
     <title>Lista książek</title>
+   
     <link rel="stylesheet" th:href="@{/static/application.css}" href="/static/application.css" />
 </head>
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+<script type="text/javascript">
+var prefix = "/workshop";
+
+function RestDelete(id) {
+
+	   $.ajax({
+	        type: 'DELETE',
+	        url:  prefix + "/book/" + id,
+	        async: true,
+	        success: function(result) {
+	        	$("#page").html(result);    
+	        
+	        },
+	    });
+}
+</script>
 <body>
-    <div>
+    <div id="page">
        <table class="booksTable">
   <thead class="booksTableHead">
     <tr>
@@ -22,13 +40,21 @@
 	      <td th:text="${book.title}"/>
 	      <td th:text="${book.authors}"/>
 	      <td>
-	        <a href="#"  th:href="@{/books/Confirmation(id=${book.id})}">
-	        <button class="button">Usun</button>
-	        </a>
+				<button class="button" th:onclick="'javascript:RestDelete(\'' + ${book.id} + '\');'">
+				Usun
+				</button>
+	<button class="button" >
+				Edytuj
+				</button>
 	      </td>
     </tr>
   </tbody>
 </table>
+			
+	<button class="button">
+			Dodaj
+				</button>
+
     </div>
 </body>
 </html>

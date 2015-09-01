@@ -12,9 +12,12 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
+import org.springframework.web.servlet.ModelAndView;
+
 import pl.spring.demo.service.BookService;
 import pl.spring.demo.to.BookTo;
 import pl.spring.demo.web.utils.FileUtils;
@@ -67,7 +70,7 @@ public class BookRestServiceTest {
         Mockito.when(bookService.findBooksByTitle(bookTitle)).thenReturn(Arrays.asList(bookTo1, bookTo2));
 
         // when
-        ResultActions response = this.mockMvc.perform(get("/books-by-title?titlePrefix=" + bookTitle)
+        ResultActions response = this.mockMvc.perform(get("/book/books-by-title?titlePrefix=" + bookTitle)
                 .accept(MediaType.APPLICATION_JSON)
                 .contentType(MediaType.APPLICATION_JSON));
         // then
@@ -90,7 +93,7 @@ public class BookRestServiceTest {
         File file = FileUtils.getFileFromClasspath("classpath:pl/spring/demo/web/json/bookToSave.json");
         String json = FileUtils.readFileToString(file);
         // when
-        ResultActions response = this.mockMvc.perform(post("/book")
+        ResultActions response = this.mockMvc.perform(post("/book/bookJSON")
                 .accept(MediaType.APPLICATION_JSON)
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(json.getBytes()));
@@ -102,19 +105,24 @@ public class BookRestServiceTest {
     public void testAddBook() throws Exception {
         // given
     		
-    	BookTo book=new BookTo(null,"Potop", "author");
+    	BookTo book=new BookTo("Potop", "author");
         Mockito.when(bookService.saveBook(Mockito.argThat(matchNullIdBookTo))).thenReturn(new BookTo(1L, "Potop", "author"));
 
         // when
-        ResultActions response = this.mockMvc.perform(post("/books")
+        ResultActions response = this.mockMvc.perform(post("/book")
                 .param("title", book.getTitle())
                 .param("author",book.getAuthors()));
-
+        MvcResult result = response.andReturn();
+        ModelAndView modelAndView = result.getModelAndView();
+        BookTo sav=(BookTo) modelAndView.getModel().get("saved");
         // then
         Mockito.verify(bookService).saveBook(Mockito.argThat(matchNullIdBookTo));
 
         response.andExpect(status().isOk());
-      	
+        Assert.assertEquals(book.getTitle(), sav.getTitle());
+        Assert.assertEquals(book.getAuthors(), sav.getAuthors());
+   
+        
     }
     
     @Test
@@ -123,15 +131,16 @@ public class BookRestServiceTest {
         long id=2L;
     	BookTo book =new BookTo(id,"Potop", "Henryk Sienkiewicz");
     	   Mockito.when(bookService.findBookById(id)).thenReturn(book);//find book to delete
+      	   Mockito.when(bookService.findAllBooks()).thenReturn(Arrays.asList(book));//find book to delete
          // when
-         ResultActions response = this.mockMvc.perform(delete("/books")
-                 .param("id", "2")
+         ResultActions response = this.mockMvc.perform(delete("/book/2")
        );
+  
          // then
 
          Mockito.verify(bookService).deleteBook(book);
 
-         response.andExpect(status().isOk());          
-        	
+         response.andExpect(status().isOk());         
+  
     }
 }
