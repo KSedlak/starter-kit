@@ -93,7 +93,7 @@ public class BookRestServiceTest {
         File file = FileUtils.getFileFromClasspath("classpath:pl/spring/demo/web/json/bookToSave.json");
         String json = FileUtils.readFileToString(file);
         // when
-        ResultActions response = this.mockMvc.perform(post("/book/bookJSON")
+        ResultActions response = this.mockMvc.perform(post("/book/")
                 .accept(MediaType.APPLICATION_JSON)
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(json.getBytes()));
@@ -101,46 +101,29 @@ public class BookRestServiceTest {
         response.andExpect(status().isOk());
     }
     
-    @Test
-    public void testAddBook() throws Exception {
-        // given
-    		
-    	BookTo book=new BookTo("Potop", "author");
-        Mockito.when(bookService.saveBook(Mockito.argThat(matchNullIdBookTo))).thenReturn(new BookTo(1L, "Potop", "author"));
-
-        // when
-        ResultActions response = this.mockMvc.perform(post("/book")
-                .param("title", book.getTitle())
-                .param("author",book.getAuthors()));
-        MvcResult result = response.andReturn();
-        ModelAndView modelAndView = result.getModelAndView();
-        BookTo sav=(BookTo) modelAndView.getModel().get("saved");
-        // then
-        Mockito.verify(bookService).saveBook(Mockito.argThat(matchNullIdBookTo));
-
-        response.andExpect(status().isOk());
-        Assert.assertEquals(book.getTitle(), sav.getTitle());
-        Assert.assertEquals(book.getAuthors(), sav.getAuthors());
    
-        
-    }
     
     @Test
     public void testDeleteBook() throws Exception {		
     	//given
         long id=2L;
     	BookTo book =new BookTo(id,"Potop", "Henryk Sienkiewicz");
+    	String shouldReturn="redirect:/book/confirmation/"+book.getTitle();
     	   Mockito.when(bookService.findBookById(id)).thenReturn(book);//find book to delete
       	   Mockito.when(bookService.findAllBooks()).thenReturn(Arrays.asList(book));//find book to delete
          // when
          ResultActions response = this.mockMvc.perform(delete("/book/2")
        );
-  
+         MvcResult result = response.andReturn();
+         ModelAndView modelAndView = result.getModelAndView();
+         String mavName=modelAndView.getViewName();
+
          // then
 
          Mockito.verify(bookService).deleteBook(book);
 
-         response.andExpect(status().isOk());         
+         response.andExpect(status().is3xxRedirection());         //check if redirected
+         Assert.assertEquals(shouldReturn, mavName);
   
     }
 }
