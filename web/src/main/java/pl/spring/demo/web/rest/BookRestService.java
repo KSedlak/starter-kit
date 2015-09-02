@@ -33,12 +33,23 @@ public class BookRestService {
 	public BookTo saveBook(@RequestBody BookTo book) {
 		return bookService.saveBook(book);
 	}
-
+/*
 	@RequestMapping(method = RequestMethod.POST)///called by POST request on list
 	public ModelAndView bookAdd(@RequestParam(value = "title", required = true) String title,
 			@RequestParam(value = "author", required = true) String author	) {
 		
 		BookTo book = new BookTo(title, author);
+		BookTo saved=bookService.saveBook(book);
+		
+		ModelAndView mod= new ModelAndView("bookList");
+		mod.addObject("saved",saved);
+			
+		return mod;
+	}
+	*/
+	@RequestMapping(method = RequestMethod.POST)///called by POST request on list
+	public ModelAndView bookAdd(@RequestBody BookTo book) {
+		
 		BookTo saved=bookService.saveBook(book);
 		
 		ModelAndView mod= new ModelAndView("bookList");
