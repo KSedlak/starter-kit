@@ -4,16 +4,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-import org.springframework.web.servlet.support.RequestContextUtils;
-
 import pl.spring.demo.service.BookService;
 import pl.spring.demo.to.BookTo;
-
 import java.util.List;
 import java.util.Map;
 
-import javax.servlet.http.HttpServletRequest;
 
 @Controller
 @RequestMapping(value = "/book")
@@ -48,11 +43,10 @@ public class BookRestService {
 
 	@RequestMapping(value="/{bookId}", method = RequestMethod.DELETE)///called by DELETE request on list
 	public String bookDelete(@PathVariable Long bookId) {
+		
 		BookTo book = bookService.findBookById(bookId);
 
 		bookService.deleteBook(book);
-
-
         return "redirect:/book/confirmation/"+book.getTitle();
 	}
 	
