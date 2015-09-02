@@ -3,122 +3,156 @@
 <head lang="en">
 <meta charset="UTF-8" />
 <title>Lista książek</title>
-
+<spring:url value="/static/applicationScript.js" var="mainJs" />
 <link rel="stylesheet" th:href="@{/static/application.css}"
 	href="/static/application.css" />
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
 </head>
-<script
-	src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
-<script type="text/javascript">
-$(document).ready(function(){
+<script type ="text/javascript">
 
-    //get the height and width of the page
-    var window_width = $(window).width();
-    var window_height = $(window).height();
+$(document).ready(function() {
 
-    //vertical and horizontal centering of modal window(s)
-    /*we will use each function so if we have more then 1
-    modal window we center them all*/
-    $('.modal_window').each(function(){
+		//get the height and width of the page
+		var window_width = $(window).width();
+		var window_height = $(window).height();
 
-        //get the height and width of the modal
-        var modal_height = $(this).outerHeight();
-        var modal_width = $(this).outerWidth();
+		//vertical and horizontal centering of modal window(s)
+		/*we will use each function so if we have more then 1
+		modal window we center them all*/
+		$('.modal_window').each(function() {
 
-        //calculate top and left offset needed for centering
-        var top = (window_height-modal_height)/2;
-        var left = (window_width-modal_width)/2;
+			//get the height and width of the modal
+			var modal_height = $(this).outerHeight();
+			var modal_width = $(this).outerWidth();
 
-        //apply new top and left css values
-        $(this).css({'top' : top , 'left' : left});
+			//calculate top and left offset needed for centering
+			var top = (window_height - modal_height) / 2;
+			var left = (window_width - modal_width) / 2;
 
-    });
+			//apply new top and left css values
+			$(this).css({
+				'top' : top,
+				'left' : left
+			});
 
-        $('.activate_modal').click(function(){
+		});
 
-              //get the id of the modal window stored in the name of the activating element
-              var modal_id = $(this).attr('name');
+		$('.activate_modal').click(function() {
 
-              //use the function to show it
-              show_modal(modal_id);
+			//get the id of the modal window stored in the name of the activating element
+			var modal_id = $(this).attr('name');
 
-        });
+			//use the function to show it
+			show_modal(modal_id);
 
-        $('.close_modal').click(function(){
+		});
 
-            //use the function to close it
-            close_modal();
+		$('.close_modal').click(function() {
 
-        });
+			//use the function to close it
+			close_modal();
 
-    });
+		});
 
-    //THE FUNCTIONS
+	});
 
-    function close_modal(){
+	//THE FUNCTIONS
 
-        //hide the mask
-        $('#mask').fadeOut(500);
+	function close_modal() {
 
-        //hide modal window(s)
-        $('.modal_window').fadeOut(500);
+		//hide the mask
+		$('#mask').fadeOut(500);
 
-    }
-    function show_modal(modal_id){
+		//hide modal window(s)
+		$('.modal_window').fadeOut(500);
 
-        //set display to block and opacity to 0 so we can use fadeTo
-        $('#mask').css({ 'display' : 'block', opacity : 0});
+	}
+	function show_modal(modal_id) {
 
-        //fade in the mask to opacity 0.8
-        $('#mask').fadeTo(500,0.8);
+		//set display to block and opacity to 0 so we can use fadeTo
+		$('#mask').css({
+			'display' : 'block',
+			opacity : 0
+		});
 
-         //show the modal window
-        $('#'+modal_id).fadeIn(500);
+		//fade in the mask to opacity 0.8
+		$('#mask').fadeTo(500, 0.8);
 
-    }
+		//show the modal window
+		$('#' + modal_id).fadeIn(500);
 
-var prefix = "/workshop";
+	}
 
+	var prefix = "/workshop";
 
-function RestDelete(id) {
+	function RestDelete(id) {
 
-	   $.ajax({
-	        type: 'DELETE',
-	        url:  prefix + "/book/" + id,
-	        async: true,
-	        
-	        success: function(result) {
-	        	$("#page").html(result);    
-	        
-	        },
-	    });
-}
+		$.ajax({
+			type : 'DELETE',
+			url : prefix + "/book/" + id,
+			async : true,
 
-function RestAdd(){
-	var dataTab = {};
-	$( "#addForm" ).serializeArray().map(function(x){dataTab[x.name] = x.value;}); 
-    var convertedForm = JSON.stringify(dataTab);
-   	
-    $.ajax({
-        type: 'POST',
-        url:  prefix + "/book/",
-		contentType: "application/json; charset=utf-8",		
-		data: convertedForm,
-        async: false,
-        success: function(result) {
-        	},
-        error: function(jqXHR, textStatus, errorThrown) {
-            alert(jqXHR.status + " " + jqXHR.responseText);
+			success : function(result) {
+				$("#page").html(result);
 
-        }
-});
+			},
+		});
+	}
 
-}
+	function RestAdd() {
+		var dataTab = {};
+		$("#addForm").serializeArray().map(function(x) {
+			dataTab[x.name] = x.value;
+		});
+		var convertedForm = JSON.stringify(dataTab);
 
+		$.ajax({
+			type : 'POST',
+			url : prefix + "/book/",
+			contentType : "application/json; charset=utf-8",
+			data : convertedForm,
+			async : false,
+			success : function(result) {
 
+			},
+			error : function(jqXHR, textStatus, errorThrown) {
+				alert(jqXHR.status + " " + jqXHR.responseText);
 
+			}
+		});
+
+	}
+	function RestSave() {
+		var dataTab = {};
+		$("#editForm").serializeArray().map(function(x) {
+			dataTab[x.name] = x.value;
+		});
+		var convertedForm = JSON.stringify(dataTab);
+
+		$.ajax({
+			type : 'POST',
+			url : prefix + "/book/",
+			contentType : "application/json; charset=utf-8",
+			data : convertedForm,
+			async : false,
+			success : function(result) {
+
+			},
+			error : function(jqXHR, textStatus, errorThrown) {
+				alert(jqXHR.status + " " + jqXHR.responseText);
+
+			}
+		});
+
+	}
+
+	function initEdit(title, author, id) {
+		$("#titleEdit").val(title);
+		$("#authorEdit").val(author);
+		$("#idEdit").val(id);
+
+	}
 </script>
-
 <body>
 	<div id="page">
 		<table class="booksTable">
@@ -137,9 +171,10 @@ function RestAdd(){
 					<td th:text="${book.authors}" />
 					<td>
 						<button class="button"
-							th:onclick="'javascript:RestDelete(\'' + ${book.id} + '\');'">
-							Usun</button>
-						<button class="button">Edytuj</button>
+							th:onclick="'javascript:RestDelete(\'' + ${book.id} + '\');'">Usun</button>
+							<button  class="activate_modal button" name="dialogEdit"
+						th:onclick="'javascript:initEdit(\'' + ${book.title} +'\',\'' + ${book.authors} +'\',\'' + ${book.id} +'\');'">Edytuj </button>
+
 					</td>
 				</tr>
 			</tbody>
@@ -149,32 +184,29 @@ function RestAdd(){
 		<a href="#" class="activate_modal button AddButton" name="dialog">Dodaj</a>
 
 	</div>
-<div id='mask' class='close_modal'></div>  
+	<div id='mask' class='close_modal'></div>
 	<div id="dialog" class="modal_window">
 		<form id="addForm">
 
- <label for="title">Tytul</label>
-			<input type="text" name="title" id="title" />
-<label for="auth">Autorzy</label>
-			<input type="text" name="authors" id="auth" /> 
-<input type="hidden" name="id" value=""/>
+			<label for="title">Tytul</label> <input type="text" name="title"
+				id="title" /> <label for="auth">Autorzy</label> <input type="text"
+				name="authors" id="auth" /> <input type="hidden" name="id" value="" />
 
 			<button class="button ModalButton" onclick="RestAdd()">dodaj</button>
 		</form>
 	</div>
-	
+
 	<div id="dialogEdit" class="modal_window">
-		<form id="addForm">
+		<form id="editForm">
 
- <label for="title">Tytul</label>
-			<input type="text" name="title" id="title" />
-<label for="auth">Autorzy</label>
-			<input type="text" name="authors" id="auth" /> 
-<input type="hidden" name="id" value=""/>
+			<label for="title">Tytul</label> <input type="text" name="title"
+				id="titleEdit" /> <label for="auth">Autorzy</label> <input
+				type="text" name="authors" id="authorEdit" /> <input type="hidden"
+				name="id" value="" id="idEdit" />
 
-			<button class="button ModalButton" onclick="RestAdd()">dodaj</button>
+			<button class="button ModalButton" onclick="RestSave()">Zapisz</button>
 		</form>
-	</div>	
+	</div>
 
 </body>
 </html>
