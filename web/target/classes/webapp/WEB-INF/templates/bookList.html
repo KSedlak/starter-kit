@@ -169,9 +169,9 @@ $(document).ready(function() {
 					<td th:text="${book.title}" />
 					<td th:text="${book.authors}" />
 					<td sec:authorize="hasRole('ROLE_ADMIN')">
-						<button class="button"
+						<button class="button tabButton"
 							th:onclick="'javascript:RestDelete(\'' + ${book.id} + '\');'">Usun</button>
-							<button  class="activate_modal button" name="dialogEdit"
+							<button  class="activate_modal button tabButton" name="dialogEdit"
 						th:onclick="'javascript:initEdit(\'' + ${book.title} +'\',\'' + ${book.authors} +'\',\'' + ${book.id} +'\');'">Edytuj </button>
 
 					</td>
@@ -179,19 +179,20 @@ $(document).ready(function() {
 			</tbody>
 		</table>
 
-  <a href="/book" th:href="@{/book}" class="button AddButton" name="dialog" sec:authorize="isAnonymous()">Edytuj tabele</a>
-
-		
+ 		<a href="/book" th:href="@{/book}" class="button AddButton" name="dialog" sec:authorize="isAnonymous()">Edytuj tabele</a>	
 		<a href="#" class="activate_modal button AddButton" name="dialog" sec:authorize="hasRole('ROLE_ADMIN')">Dodaj</a>
 		<a href="#" th:href="@{/logout}" class="button AddButton" sec:authorize="hasRole('ROLE_ADMIN')">Zakoncz Edycje</a>
+		
 	</div>
 	<div id='mask' class='close_modal'></div>
 	<div id="dialog" class="modal_window">
 		<form id="addForm">
 
-			<label for="title">Tytul</label> <input type="text" name="title"
-				id="title" /> <label for="auth">Autorzy</label> <input type="text"
-				name="authors" id="auth" /> <input type="hidden" name="id" value="" />
+			<label for="title" class="labelP">Tytul:</label> 
+			<input type="text" name="title" id="title" /> 
+				<label for="auth" class="labelP">Autor:</label> 
+				<input type="text" name="authors" id="auth" /> 
+				<input type="hidden" name="id" value="" />
 
 			<button class="button ModalButton" onclick="RestAdd()">dodaj</button>
 		</form>
@@ -200,10 +201,11 @@ $(document).ready(function() {
 	<div id="dialogEdit" class="modal_window">
 		<form id="editForm">
 
-			<label for="title">Tytul</label> <input type="text" name="title"
-				id="titleEdit" /> <label for="auth">Autorzy</label> <input
-				type="text" name="authors" id="authorEdit" /> <input type="hidden"
-				name="id" value="" id="idEdit" />
+			<label for="title" class="labelP">Tytul:</label> 
+			<input type="text" name="title" id="titleEdit" /> 
+			<label for="auth" class="labelP">Autor:</label> 
+			<input		type="text" name="authors" id="authorEdit" /> 
+			<input type="hidden" name="id" value="" id="idEdit" />
 
 			<button class="button ModalButton" onclick="RestSave()">Zapisz</button>
 		</form>

@@ -6,7 +6,11 @@
 }
 
 
-
+.labelP{
+	font-size: 30px;
+	font-weight: bold;
+	font-family: "Arial";
+}
 bodyLogin {
   font: 13px/20px 'Lucida Grande', Tahoma, Verdana, sans-serif;
   color: #404040;
@@ -126,14 +130,16 @@ bodyLogin {
 }
 
 .booksTableHead {
-	background: -o-linear-gradient(bottom, #0057af 5%, #007fff 100%);
-	background: -webkit-gradient(linear, left top, left bottom, color-stop(0.05, #0057af
-		), color-stop(1, #007fff));
-	background: -moz-linear-gradient(center top, #0057af 5%, #007fff 100%);
-	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#0057af",
-		endColorstr="#007fff");
-	background: -o-linear-gradient(top, #0057af, 007fff);
-	background-color: #0057af;
+background: -webkit-gradient(linear, left top, left bottom, color-stop(0.05, #33bdef
+		), color-stop(1, #019ad2));
+	background: -moz-linear-gradient(top, #33bdef 5%, #019ad2 100%);
+	background: -webkit-linear-gradient(top, #33bdef 5%, #019ad2 100%);
+	background: -o-linear-gradient(top, #33bdef 5%, #019ad2 100%);
+	background: -ms-linear-gradient(top, #33bdef 5%, #019ad2 100%);
+	background: linear-gradient(to bottom, #33bdef 5%, #019ad2 100%);
+	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#33bdef',
+		endColorstr='#019ad2', GradientType=0);
+	background-color: #33bdef;
 	border: 0px solid #000000;
 	text-align: center;
 	border-width: 0px 0px 1px 1px;
@@ -143,17 +149,9 @@ bodyLogin {
 	color: #fcf9f9;
 }
 
-.booksTableHead:hover {
-	background: -o-linear-gradient(bottom, #0057af 5%, #007fff 100%);
-	background: -webkit-gradient(linear, left top, left bottom, color-stop(0.05, #0057af
-		), color-stop(1, #007fff));
-	background: -moz-linear-gradient(center top, #0057af 5%, #007fff 100%);
-	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#0057af",
-		endColorstr="#007fff");
-	background: -o-linear-gradient(top, #0057af, 007fff);
-	background-color: #0057af;
+.tabButton{
+	width:30%;
 }
-
 .booksTable tr:last-child td:last-child {
 	-moz-border-radius-bottomright: 0px;
 	-webkit-border-bottom-right-radius: 0px;
