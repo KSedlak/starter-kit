@@ -1,0 +1,3 @@
+pl\spring\demo\web\controller\HomeController.class
+pl\spring\demo\web\jetty\EmbeddedJetty.class
+pl\spring\demo\web\rest\BookRestService.class

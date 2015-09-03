@@ -1,6 +1,7 @@
 package pl.spring.demo.web.rest;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
@@ -11,6 +12,7 @@ import java.util.Map;
 
 
 @Controller
+@Secured("ROLE_ADMIN")
 @RequestMapping(value = "/book")
 public class BookRestService {
 
@@ -34,7 +36,7 @@ public class BookRestService {
 		
 		BookTo saved=bookService.saveBook(book);
 		
-		ModelAndView mod= new ModelAndView("bookList");
+		ModelAndView mod= new ModelAndView("bookListAdminView");
 		mod.addObject("saved",saved);
 			
 		return mod;
@@ -61,10 +63,10 @@ public class BookRestService {
         return mod;
 	}
     @RequestMapping(method = RequestMethod.GET) //book list
-    public String bookList(Map<String, Object> params) {
+    public String bookListAdminView(Map<String, Object> params) {
         final List<BookTo> allBooks = bookService.findAllBooks();
         params.put("books", allBooks);
-        return "bookList";
+        return "bookListAdminView";
     }
 
 }

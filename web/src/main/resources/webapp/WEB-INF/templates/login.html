@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <title>Login page</title>
+        <meta charset="utf-8" />
+        <link rel="stylesheet" th:href="@{/static/application.css}"
+	href="/static/application.css" />
+	</head>
+    <body class="bodyLogin">
+     <section class="container">
+<div class="login">
+
+        <p th:if="${loginError}" class="error">Wrong user or password</p>
+        <form th:action="@{/login}" method="post">
+            <label for="j_username" class="label">Nazwa uzytkownika</label>:
+            <input type="text" id="username" name="username" autofocus="autofocus" /> <br />
+            <label for="j_password">Haslo</label>:
+            <input type="password" id="password" name="password" /> <br />
+            <input  class ="button AddButton" type="submit" value="Zaloguj" />
+        </form>
+  
+        </div>
+       </section>
+    </body>
+</html>
