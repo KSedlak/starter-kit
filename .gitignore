@@ -25,3 +25,4 @@ web/target/surefire-reports/pl.spring.demo.web.controller.SimpleControllerTest.t
 web/target/surefire-reports/pl.spring.demo.web.rest.BookRestServiceTest.txt
 web/target/surefire-reports/TEST-pl.spring.demo.web.controller.SimpleControllerTest.xml
 web/target/surefire-reports/TEST-pl.spring.demo.web.rest.BookRestServiceTest.xml
+web/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst

@@ -3,12 +3,18 @@ package pl.spring.demo.web.rest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import org.springframework.web.servlet.support.RequestContextUtils;
+
 import pl.spring.demo.service.BookService;
 import pl.spring.demo.to.BookTo;
 import java.util.List;
 import java.util.Map;
+
+import javax.servlet.http.HttpServletRequest;
 
 
 @Controller
@@ -44,18 +50,22 @@ public class BookRestService {
 
 
 	@RequestMapping(value="/{bookId}", method = RequestMethod.DELETE)///called by DELETE request on list
-	public String bookDelete(@PathVariable Long bookId) {
+	public String bookDelete(@PathVariable Long bookId,@ModelAttribute("book") BookTo book, RedirectAttributes redirectAttrs) {
 		
-		BookTo book = bookService.findBookById(bookId);
-
+		 book = bookService.findBookById(bookId);
+		 redirectAttrs.addFlashAttribute("book", book.getTitle());
 		bookService.deleteBook(book);
-        return "redirect:/book/confirmation/"+book.getTitle();
+        return "redirect:/book/confirmation/";
 	}
 	
 
-	@RequestMapping(value="/confirmation/{title}", method = RequestMethod.DELETE)///called by DELETE request on list
-	public ModelAndView bookConf(@PathVariable String title) {
-		
+	@RequestMapping(value="/confirmation", method = RequestMethod.DELETE)///called by DELETE request on list
+	public ModelAndView bookConf(Model model, RedirectAttributes redirectAttrs,HttpServletRequest request) {
+		String title = null;
+		Map<String, ?> flashMap = RequestContextUtils.getInputFlashMap(request);
+		if (flashMap != null) {
+				title=(String)flashMap.get("book");
+		}
 		ModelAndView mod= new ModelAndView("confirmation");
 		String msg="Ksiazka o tytule "+title+" zostala usunieta.";
 		mod.addObject("bookDeleteMsg", msg);

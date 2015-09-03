@@ -96,7 +96,7 @@ public class BookRestServiceTest {
     	//given
         long id=2L;
     	BookTo book =new BookTo(id,"Potop", "Henryk Sienkiewicz");
-    	String shouldReturn="redirect:/book/confirmation/"+book.getTitle();
+    	String shouldReturn="redirect:/book/confirmation/";
     	   Mockito.when(bookService.findBookById(id)).thenReturn(book);//find book to delete
       	   Mockito.when(bookService.findAllBooks()).thenReturn(Arrays.asList(book));//find book to delete
          // when
