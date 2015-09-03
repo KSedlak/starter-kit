@@ -12,9 +12,9 @@
 
         <p th:if="${loginError}" class="error">Wrong user or password</p>
         <form th:action="@{/login}" method="post">
-            <label for="j_username" class="label">Nazwa uzytkownika</label>:
+            <label for="username" class="loginLabel">Nazwa uzytkownika</label>:
             <input type="text" id="username" name="username" autofocus="autofocus" /> <br />
-            <label for="j_password">Haslo</label>:
+            <label for="password" class="loginLabel">Haslo</label>:
             <input type="password" id="password" name="password" /> <br />
             <input  class ="button AddButton" type="submit" value="Zaloguj" />
         </form>
