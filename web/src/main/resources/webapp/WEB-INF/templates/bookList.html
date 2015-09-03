@@ -7,16 +7,160 @@
 	href="/static/application.css" />
 	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
 </head>
+<script type ="text/javascript">
 
+$(document).ready(function() {
+
+		//get the height and width of the page
+		var window_width = $(window).width();
+		var window_height = $(window).height();
+
+		//vertical and horizontal centering of modal window(s)
+		/*we will use each function so if we have more then 1
+		modal window we center them all*/
+		$('.modal_window').each(function() {
+
+			//get the height and width of the modal
+			var modal_height = $(this).outerHeight();
+			var modal_width = $(this).outerWidth();
+
+			//calculate top and left offset needed for centering
+			var top = (window_height - modal_height) / 2;
+			var left = (window_width - modal_width) / 2;
+
+			//apply new top and left css values
+			$(this).css({
+				'top' : top,
+				'left' : left
+			});
+
+		});
+
+		$('.activate_modal').click(function() {
+
+			//get the id of the modal window stored in the name of the activating element
+			var modal_id = $(this).attr('name');
+
+			//use the function to show it
+			show_modal(modal_id);
+
+		});
+
+		$('.close_modal').click(function() {
+
+			//use the function to close it
+			close_modal();
+
+		});
+
+	});
+
+	//THE FUNCTIONS
+
+	function close_modal() {
+
+		//hide the mask
+		$('#mask').fadeOut(500);
+
+		//hide modal window(s)
+		$('.modal_window').fadeOut(500);
+
+	}
+	function show_modal(modal_id) {
+
+		//set display to block and opacity to 0 so we can use fadeTo
+		$('#mask').css({
+			'display' : 'block',
+			opacity : 0
+		});
+
+		//fade in the mask to opacity 0.8
+		$('#mask').fadeTo(500, 0.8);
+
+		//show the modal window
+		$('#' + modal_id).fadeIn(500);
+
+	}
+
+	var prefix = "/workshop";
+
+	function RestDelete(id) {
+
+		$.ajax({
+			type : 'DELETE',
+			url : prefix + "/book/" + id,
+			async : true,
+
+			success : function(result) {
+				$("#page").html(result);
+
+			},
+		});
+	}
+
+	function RestAdd() {
+		var dataTab = {};
+		$("#addForm").serializeArray().map(function(x) {
+			dataTab[x.name] = x.value;
+		});
+		var convertedForm = JSON.stringify(dataTab);
+
+		$.ajax({
+			type : 'POST',
+			url : prefix + "/book/",
+			contentType : "application/json; charset=utf-8",
+			data : convertedForm,
+			async : false,
+			success : function(result) {
+
+			},
+			error : function(jqXHR, textStatus, errorThrown) {
+				alert(jqXHR.status + " " + jqXHR.responseText);
+
+			}
+		});
+
+	}
+	function RestSave() {
+		var dataTab = {};
+		$("#editForm").serializeArray().map(function(x) {
+			dataTab[x.name] = x.value;
+		});
+		var convertedForm = JSON.stringify(dataTab);
+
+		$.ajax({
+			type : 'POST',
+			url : prefix + "/book/",
+			contentType : "application/json; charset=utf-8",
+			data : convertedForm,
+			async : false,
+			success : function(result) {
+
+			},
+			error : function(jqXHR, textStatus, errorThrown) {
+				alert(jqXHR.status + " " + jqXHR.responseText);
+
+			}
+		});
+
+	}
+
+	function initEdit(title, author, id) {
+		$("#titleEdit").val(title);
+		$("#authorEdit").val(author);
+		$("#idEdit").val(id);
+
+	}
+</script>
 <body>
-	<div id="page">
+	<div id="page" >
 		<table class="booksTable">
 			<thead class="booksTableHead">
 				<tr>
 					<th>ID</th>
 					<th>Tytul</th>
 					<th>Autor</th>
-	
+					<th sec:authorize="hasRole('ROLE_ADMIN')"></th>
 				</tr>
 			</thead>
 			<tbody>
@@ -24,16 +168,46 @@
 					<td th:text="${book.id}" />
 					<td th:text="${book.title}" />
 					<td th:text="${book.authors}" />
+					<td sec:authorize="hasRole('ROLE_ADMIN')">
+						<button class="button"
+							th:onclick="'javascript:RestDelete(\'' + ${book.id} + '\');'">Usun</button>
+							<button  class="activate_modal button" name="dialogEdit"
+						th:onclick="'javascript:initEdit(\'' + ${book.title} +'\',\'' + ${book.authors} +'\',\'' + ${book.id} +'\');'">Edytuj </button>
 
+					</td>
 				</tr>
 			</tbody>
 		</table>
 
+  <a href="/book" th:href="@{/book}" class="button AddButton" name="dialog" sec:authorize="isAnonymous()">Edytuj tabele</a>
 
-		<a href="/workshop/book" class="button AddButton" name="dialog">Edytuj tabele</a>
-
+		
+		<a href="#" class="activate_modal button AddButton" name="dialog" sec:authorize="hasRole('ROLE_ADMIN')">Dodaj</a>
+		<a href="#" th:href="@{/logout}" class="activate_modal button AddButton" sec:authorize="hasRole('ROLE_ADMIN')">Zakoncz Edycje</a>
 	</div>
-	
+	<div id='mask' class='close_modal'></div>
+	<div id="dialog" class="modal_window">
+		<form id="addForm">
+
+			<label for="title">Tytul</label> <input type="text" name="title"
+				id="title" /> <label for="auth">Autorzy</label> <input type="text"
+				name="authors" id="auth" /> <input type="hidden" name="id" value="" />
+
+			<button class="button ModalButton" onclick="RestAdd()">dodaj</button>
+		</form>
+	</div>
+
+	<div id="dialogEdit" class="modal_window">
+		<form id="editForm">
+
+			<label for="title">Tytul</label> <input type="text" name="title"
+				id="titleEdit" /> <label for="auth">Autorzy</label> <input
+				type="text" name="authors" id="authorEdit" /> <input type="hidden"
+				name="id" value="" id="idEdit" />
+
+			<button class="button ModalButton" onclick="RestSave()">Zapisz</button>
+		</form>
+	</div>
 
 </body>
 </html>

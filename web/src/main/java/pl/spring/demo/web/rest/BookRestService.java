@@ -36,7 +36,7 @@ public class BookRestService {
 		
 		BookTo saved=bookService.saveBook(book);
 		
-		ModelAndView mod= new ModelAndView("bookListAdminView");
+		ModelAndView mod= new ModelAndView("bookList");
 		mod.addObject("saved",saved);
 			
 		return mod;
@@ -63,10 +63,10 @@ public class BookRestService {
         return mod;
 	}
     @RequestMapping(method = RequestMethod.GET) //book list
-    public String bookListAdminView(Map<String, Object> params) {
+    public String bookList(Map<String, Object> params) {
         final List<BookTo> allBooks = bookService.findAllBooks();
         params.put("books", allBooks);
-        return "bookListAdminView";
+        return "bookList";
     }
 
 }
