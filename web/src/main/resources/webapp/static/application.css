@@ -1,7 +1,8 @@
 .error {
 	color: red;
-	font-size: 20px;
+	font-size: 30px;
 	font-weight: bold;
+	text-align: center;
 }
 
 
@@ -248,6 +249,15 @@ input {
 	font-family:"Arial";
 	margin-top:10px;
 }
+.backButton{
+	width: 200px;
+	position: absolute;
+	margin-left: 230px;
+	margin-right: auto;
+	text-align: center;
+	font-size:20px;
+	
+}
 
 .login {
 	border: 1px solid gray;
@@ -255,7 +265,7 @@ input {
   margin: 0 auto;
   padding: 20px 20px 20px;
   width: 370px;
-  height: 230px;
+  height: 160px;
   background: white;
   border-radius: 3px;
   @include box-shadow(0 0 200px rgba(white, .5), 0 1px 2px rgba(black, .3));

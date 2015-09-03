@@ -10,7 +10,7 @@
      <section class="container">
 <div class="login">
 
-        <p th:if="${loginError}" class="error">Wrong user or password</p>
+
         <form th:action="@{/login}" method="post">
             <label for="username" class="loginLabel">Nazwa uzytkownika</label>:
             <input type="text" id="username" name="username" autofocus="autofocus" /> <br />
@@ -20,6 +20,8 @@
         </form>
   
         </div>
+                <p th:if="${loginError}" class="error">Niepoprawna nazwa uzytkownika lub haslo</p>
+                 <a href="#" th:href="@{/}" th:if="${loginError}" class="button backButton">Wroc do listy</a>
        </section>
     </body>
 </html>

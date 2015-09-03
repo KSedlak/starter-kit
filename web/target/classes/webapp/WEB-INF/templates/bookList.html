@@ -183,7 +183,7 @@ $(document).ready(function() {
 
 		
 		<a href="#" class="activate_modal button AddButton" name="dialog" sec:authorize="hasRole('ROLE_ADMIN')">Dodaj</a>
-		<a href="#" th:href="@{/logout}" class="activate_modal button AddButton" sec:authorize="hasRole('ROLE_ADMIN')">Zakoncz Edycje</a>
+		<a href="#" th:href="@{/logout}" class="button AddButton" sec:authorize="hasRole('ROLE_ADMIN')">Zakoncz Edycje</a>
 	</div>
 	<div id='mask' class='close_modal'></div>
 	<div id="dialog" class="modal_window">
