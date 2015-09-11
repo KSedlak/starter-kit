@@ -12,16 +12,13 @@
         <tr>
             <th>Imie</th>
             <th>Nazwisko</th>
-            <th>Usuń</th>
         </tr>
         <tr ng-repeat="author in authors | filter:searchText">
             <td>{{ author.firstName }}</td>
             <td>
              {{ author.lastName }}
             </td>
-            <td>
-                <button ng-click="">Usuń</button>
-            </td>
+      
         </tr>
     </table>
 </section>

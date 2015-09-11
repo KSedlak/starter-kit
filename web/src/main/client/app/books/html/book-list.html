@@ -9,7 +9,7 @@
     <button ng-click="search()">Szukaj</button>
     <button ng-click="addBook()">Dodaj książkę</button>
 
-    <table>
+    <table  ng-show="books.length>0">
         <tr>
             <th>Tytuł</th>
             <th>Autorzy</th>
