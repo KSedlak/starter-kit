@@ -8,7 +8,7 @@ insert into author (id,  first_name, last_name) values (4, 'Henryk', 'Sienkiewic
 insert into book (id, title) values (1, 'Pierwsza książka');
 insert into book (id, title) values (2, 'Druga książka');
 insert into book (id, title) values (3, 'Trzecia książka');
-insert into book (id, title) values (4, 'Potop', 'Henryk');
+insert into book (id, title) values (4, 'Potop');
 insert into book (id, title) values (5, 'W pustyni i w puszczy');
 insert into book (id, title) values (6, 'Pan Wolodyjowski');
 insert into book (id, title) values (7, 'Ogniem i mieczem');

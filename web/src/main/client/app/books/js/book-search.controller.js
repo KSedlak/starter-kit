@@ -2,6 +2,7 @@ angular.module('app.books').controller('BookSearchController', function ($scope,
     'use strict';
 
     $scope.books = [];
+    
     $scope.gridOptions = { data: 'books' };
     $scope.prefix = '';
 
