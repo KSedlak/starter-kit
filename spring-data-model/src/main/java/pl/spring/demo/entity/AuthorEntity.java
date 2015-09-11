@@ -5,7 +5,7 @@ import java.io.Serializable;
 
 
 @Entity
-@Table(name = "Author")
+@Table(name = "AUTHOR")
 public class AuthorEntity implements Serializable {
     /**
 	 * 

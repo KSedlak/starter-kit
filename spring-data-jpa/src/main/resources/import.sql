@@ -1,7 +1,23 @@
-insert into book (id, title, authors) values (1, 'Pierwsza książka', 'Jan Kowalski');
-insert into book (id, title, authors) values (2, 'Druga książka', 'Zbigniew Nowak');
-insert into book (id, title, authors) values (3, 'Trzecia książka', 'Janusz Jankowski');
-insert into book (id, title, authors) values (4, 'Potop', 'Henryk Sienkiewicz');
-insert into book (id, title, authors) values (5, 'W pustyni i w puszczy','Henryk Sienkiewicz');
-insert into book (id, title, authors) values (6, 'Pan Wolodyjowski','Henryk Sienkiewicz');
-insert into book (id, title, authors) values (7, 'Ogniem i mieczem','Henryk Sienkiewicz');
+insert into author (id, first_name, last_name) values (1, 'Jan', 'Kowalski');
+insert into author (id,  first_name, last_name) values (2, 'Zbigniew', 'Nowak');
+insert into author (id, first_name, last_name) values (3, 'Janusz', 'Jankowski');
+insert into author (id,  first_name, last_name) values (4, 'Henryk', 'Sienkiewicz');
+
+
+
+insert into book (id, title) values (1, 'Pierwsza książka');
+insert into book (id, title) values (2, 'Druga książka');
+insert into book (id, title) values (3, 'Trzecia książka');
+insert into book (id, title) values (4, 'Potop', 'Henryk');
+insert into book (id, title) values (5, 'W pustyni i w puszczy');
+insert into book (id, title) values (6, 'Pan Wolodyjowski');
+insert into book (id, title) values (7, 'Ogniem i mieczem');
+
+
+insert into book_author (book_id,author_id) values (1,1);
+insert into book_author (book_id,author_id) values (2,2)
+insert into book_author (book_id,author_id) values (3,3)
+insert into book_author (book_id,author_id) values (4,4)
+insert into book_author (book_id,author_id) values (5,4)
+insert into book_author (book_id,author_id) values (6,4)
+insert into book_author (book_id,author_id) values (7,4)
