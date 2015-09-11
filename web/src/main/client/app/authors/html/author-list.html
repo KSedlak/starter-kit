@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<body>
+<section ng-init="initByFindingAll()">
+    <div flash-message="5000" ></div>
+
+    <p>Wyszukaj autora:</p>
+    <input type="text" ng-model="searchText">
+    
+
+    <table >
+        <tr>
+            <th>Imie</th>
+            <th>Nazwisko</th>
+            <th>Usuń</th>
+        </tr>
+        <tr ng-repeat="author in authors | filter:searchText">
+            <td>{{ author.firstName }}</td>
+            <td>
+             {{ author.lastName }}
+            </td>
+            <td>
+                <button ng-click="">Usuń</button>
+            </td>
+        </tr>
+    </table>
+</section>
+</body>
+</html>

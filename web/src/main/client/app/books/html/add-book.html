@@ -1,8 +1,24 @@
-<!DOCTYPE html>
-<html>
-<body>
-<section>
-    <p>TODO dialog umożliwiający dodanie i zapisanie nowej książki</p>
-</section>
-</body>
-</html>
+<div>
+    <form novalidate>
+        <div class="modal-header">
+            <h3 class="modal-title">Dodaj Ksiazke</h3>
+        </div>
+        <div class="modal-body">
+    <form role="form">
+      <div class="form-group">
+        <label for="Title">Tytul ksiazki</label>
+        <input type="text" class="form-control" id="titlr" placeholder="podaj tytul ksiazki" data-ng-model="addedTitle"/>
+         <label for="aName">Imie autora</label>
+        <input type="text" class="form-control" id="aName" placeholder="podaj imie autora" data-ng-model="addedName" />
+                <label for="aLastName">Nazwisko autora</label>
+        <input type="text" class="form-control" id="aLastName" placeholder="podaj nazwisko autora" data-ng-model="addedLast"/>
+        <br>
+           <button class="btn" ng-click="">Dodaj kolejnego autora</button>
+      </div>
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-warning" ng-click="$dismiss()">Zamknij</button>
+            <button class="btn btn-success" ng-click="$dismiss()">Dodaj</button>
+        </div>
+    </form>
+</div>

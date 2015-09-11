@@ -8,6 +8,7 @@
     "modules": [
         "main",
         "books",
+        "authors",
         "component-1",
         "component-2"
     ],

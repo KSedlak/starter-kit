@@ -32,8 +32,8 @@ angular.module('app.books').controller('BookSearchController', function ($scope,
 
     $scope.addBook = function () {
         $modal.open({
-            templateUrl: 'books/html/book-modal.html',
-            controller: 'BookModalController',
+            templateUrl: 'books/html/add-book.html',
+            controller: 'BookAddController',
             size: 'lg'
         });
     };
