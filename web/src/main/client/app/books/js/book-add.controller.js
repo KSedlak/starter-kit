@@ -1,11 +1,12 @@
-angular.module('app.books').controller('BookAddController', function ($scope, $modal, $window) {
+angular.module('app.books').controller('BookAddController', function ($scope, $modal, $window,isBookAdded,bookService,$modalInstance) {
     'use strict';
-
+    
     $scope.title = 'title';
     var modalInstance;
     $scope.addedAuthors = [];
     $scope.author= {firstName: "", lastName: ""};
-
+    $scope.book = {title:""};
+    $scope.isBookAdded=isBookAdded;
 
     	
     
@@ -13,7 +14,7 @@ angular.module('app.books').controller('BookAddController', function ($scope, $m
   
     
     $scope.addAuthor= function () {
-     modalInstance = $modal.open({
+    	modalInstance = $modal.open({
     	  templateUrl: 'authors/html/add-author.html',
           controller:'AuthorAddController', //This must be a referance, not a string
           		size: 'sm',
@@ -25,7 +26,7 @@ angular.module('app.books').controller('BookAddController', function ($scope, $m
      
     });
      
-     modalInstance.result.then(function (author) {
+    	modalInstance.result.then(function (author) {
          $scope.addedAuthors.push({
          	firstName: author.firstName,
          	lastName: author.lastName
@@ -37,8 +38,11 @@ angular.module('app.books').controller('BookAddController', function ($scope, $m
      
     };
     
-  	
- 
+   
+    $scope.save = function () {
+    	$modalInstance.close($scope.isBookAdded);
+
+      };
 
       
     	

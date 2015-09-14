@@ -4,7 +4,8 @@ angular.module('app.books').controller('BookSearchController', function ($scope,
     $scope.books = [];
     $scope.gridOptions = { data: 'books' };
     $scope.prefix = '';
-   var  modalInstanceBook;
+
+   $scope.isBookAdded=false;
    
     var removeBookById = function (bookId) {
         for (var i = 0; i < $scope.books.length; i = i + 1) {
@@ -31,15 +32,24 @@ angular.module('app.books').controller('BookSearchController', function ($scope,
     };
 
     $scope.addBook = function () {
-    	 modalInstanceBook = $modal.open({
+    	   var modalInstance = $modal.open({
             templateUrl: 'books/html/add-book.html',
             controller: 'BookAddController',
-            size: 'lg'
+            size: 'lg',
+            resolve: {
+            	isBookAdded: function () {
+                  return $scope.isBookAdded;
+                }
+              }
     	 
     	 });
     	 
-   
-        
+    	 modalInstance.result.then(function (isBookAdded) {
+    	         $scope.isBookAdded=isBookAdded;
+    	         if(!isBookAdded){
+    	        	 $window.alert('nieudalo sie');
+    	         }
+    	 });           
     };
 
 

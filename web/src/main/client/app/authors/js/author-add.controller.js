@@ -8,7 +8,7 @@ angular.module('app.authors').controller('AuthorAddController', function ($scope
     
     $scope.ok = function () {
 
-        $modalInstance.close();
+        $modalInstance.close( $scope.author );
       };
     	
     	
