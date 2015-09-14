@@ -2,10 +2,10 @@ angular.module('app.books').controller('BookSearchController', function ($scope,
     'use strict';
 
     $scope.books = [];
-    
     $scope.gridOptions = { data: 'books' };
     $scope.prefix = '';
-
+   var  modalInstanceBook;
+   
     var removeBookById = function (bookId) {
         for (var i = 0; i < $scope.books.length; i = i + 1) {
             if ($scope.books[i].id === bookId) {
@@ -31,13 +31,17 @@ angular.module('app.books').controller('BookSearchController', function ($scope,
     };
 
     $scope.addBook = function () {
-        $modal.open({
+    	 modalInstanceBook = $modal.open({
             templateUrl: 'books/html/add-book.html',
             controller: 'BookAddController',
             size: 'lg'
-        });
+    	 
+    	 });
+    	 
+   
+        
     };
-    
+
 
 
 });
