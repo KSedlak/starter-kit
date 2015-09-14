@@ -18,6 +18,12 @@ angular.module('app.authors').controller('AuthorSearchController', function ($sc
     };
 
    
-  
+    $scope.addAuthor= function () {
+        $modal.open({
+            templateUrl: 'authors/html/add-author.html',
+            controller: 'AuthorAddController',
+            size: 'lg'
+        });
+    };
 
 });

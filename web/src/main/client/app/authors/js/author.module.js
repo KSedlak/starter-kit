@@ -4,5 +4,10 @@ angular.module('app.authors', ['ngRoute']).config(function ($routeProvider) {
         templateUrl: 'authors/html/author-list.html',
         controller: 'AuthorSearchController'
     });
+    
+
+$routeProvider.when('/authors/add-author', {
+    templateUrl: 'authors/html/add-author.html'
+});
 
 });
