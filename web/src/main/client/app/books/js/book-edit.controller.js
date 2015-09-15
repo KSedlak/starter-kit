@@ -3,13 +3,13 @@ angular.module('app.books').controller('BookEditController', function ($scope, $
     
     $scope.title = 'title';
     var modalInstance;
-  
-    $scope.author= {firstName: "", lastName: ""};
 
-    $scope.editedAuthor= {firstName: "", lastName: ""};
+    $scope.author= {id:"", firstName: "", lastName: ""};
+
+    $scope.editedAuthor= {id:"", firstName: "", lastName: ""};
     
     $scope.selectedBook=selectedBook;
-
+    $scope.newBookTitle=selectedBook.title;
     
 
   
@@ -58,9 +58,11 @@ angular.module('app.books').controller('BookEditController', function ($scope, $
     	modalInstance.result.then(function (editedAuthor) {
     	
          $scope.selectedBook.authors.push({
+        	 id: editedAuthor.id,
          	firstName: editedAuthor.firstName,
          	lastName: editedAuthor.lastName
          });
+         $scope.editedAuthor.id = "";
          $scope.editedAuthor.firstName = "";
          $scope.editedAuthor.lastName = "";
        }       
@@ -70,10 +72,10 @@ angular.module('app.books').controller('BookEditController', function ($scope, $
     
 
     $scope.save = function () {
-
+    	$scope.selectedBook.title=$scope.newBookTitle;
     	var dataObj = {
-    			id: '',
-				title : 'jas',
+    			id: $scope.selectedBook.id,
+				title :$scope.selectedBook.title,
 				authors : $scope.selectedBook.authors
 		};
     	

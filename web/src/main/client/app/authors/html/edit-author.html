@@ -8,14 +8,14 @@
 
       <div class="form-group">
             <label>Imie Autora:</label>
-            <input type="text" name="modalAuthorName" class="form-control" ng-model="editedAuthor.firstName" ng-minlength="3" ng-pattern="/^(\D)+$/" required>
+            <input type="text" name="modalAuthorName" class="form-control" ng-model="newName" ng-minlength="3" ng-pattern="/^(\D)+$/" required>
             <p ng-show="form.AuthorEditForm.modalAuthorName.$error.minlength" class="help-block">Imie autora musi miec conajmniej 3 litery</p>
             <p ng-show="form.AuthorEditForm.modalAuthorName.$error.pattern" class="help-block">Imie musi skaldac sie tylko z liter</p>
         </div>
         
           <div class="form-group">
             <label>Nazwisko Autora:</label>
-            <input type="text" name="modalAuthorlastName" class="form-control" ng-model="editedAuthor.lastName" ng-minlength="3" ng-pattern="/^(\D)+$/" required>
+            <input type="text" name="modalAuthorlastName" class="form-control" ng-model="newLastName" ng-minlength="3" ng-pattern="/^(\D)+$/" required>
             <p ng-show="form.AuthorEditForm.modalAuthorlastName.$error.minlength" class="help-block">Nazwisko autora musi miec conajmniej 3 litery</p>
             <p ng-show="form.AuthorEditForm.modalAuthorlastName.$error.pattern" class="help-block">Nazwisko musi skaldac sie tylko z liter</p>
         </div>

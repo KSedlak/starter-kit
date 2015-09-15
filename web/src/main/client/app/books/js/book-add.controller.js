@@ -3,6 +3,7 @@ angular.module('app.books').controller('BookAddController', function ($scope, $m
     
     $scope.title = 'title';
     var modalInstance;
+   
     $scope.books=books;
     $scope.author;
     $scope.addedBook={

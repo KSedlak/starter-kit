@@ -48,9 +48,7 @@ angular.module('app.books').controller('BookSearchController', function ($scope,
            books:function(){
         	   return $scope.books;
            }
-
          }
-	   
 	 
 	 });   
 	   
