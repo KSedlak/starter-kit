@@ -1,15 +1,18 @@
-angular.module('app.authors').controller('AuthorAddController', function ($scope, $modalInstance, author) {
-    'use strict';
+angular.module('app.authors').controller(
+		'AuthorAddController',
+		function($scope, $modalInstance, author, $window, authorService) {
+			'use strict';
 
-    $scope.title = 'title';
-    $scope.author = author;
-    
- 
-    
-    $scope.ok = function () {
+			$scope.title = 'title';
+			$scope.author = {
+				id : '',
+				firstName : '',
+				lastName : ''
+			};
 
-        $modalInstance.close( $scope.author );
-      };
-    	
-    	
-});
+			$scope.ok = function() {			
+				$modalInstance.close($scope.author);
+	
+			};
+
+		});

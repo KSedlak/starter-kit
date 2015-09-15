@@ -1,4 +1,5 @@
-pl\spring\demo\web\controller\SimpleController.class
+pl\spring\demo\web\rest\AuthorRestService.class
+pl\spring\demo\web\controller\AuthorController.class
 pl\spring\demo\web\controller\BookController.class
 pl\spring\demo\web\jetty\EmbeddedJetty.class
 pl\spring\demo\web\rest\BookRestService.class

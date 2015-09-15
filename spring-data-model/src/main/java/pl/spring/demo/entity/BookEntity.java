@@ -17,7 +17,12 @@ public class BookEntity implements Serializable {
     private Long id;
     @Column(nullable = false, length = 50)
     private String title;
-    @ManyToMany(fetch = FetchType.LAZY, cascade = {CascadeType.REFRESH})
+    @ManyToMany(fetch = FetchType.LAZY, cascade = {  
+        CascadeType.DETACH,
+        CascadeType.MERGE,
+        CascadeType.REFRESH,
+        CascadeType.PERSIST
+})
     @JoinTable(name = "BOOK_AUTHOR",
             joinColumns = {@JoinColumn(name = "BOOK_ID", nullable = false, updatable = false)},
             inverseJoinColumns = {@JoinColumn(name = "AUTHOR_ID", nullable = false, updatable = false)}

@@ -16,7 +16,7 @@
         
         <label>Pod autorstwem:</label><br>
   
-        <p ng-repeat="author in addedAuthors">
+        <p ng-repeat="author in selectedBook.authors">
   {{author.firstName}} {{author.lastName}} <button class="btn" ng-click="editAuthor(author)">Edytuj</button>            <button class="btn btn-error" ng-click="remove(author)">Usun</button>
   </p>
         <button class="btn" ng-click="addAuthor()">Dodaj autora</button>
@@ -24,7 +24,7 @@
              </div>
         <div class="modal-footer">
             <button class="btn btn-warning" ng-click="$dismiss()">Zamknij</button>
-   <button class="btn btn-success" ng-click="save()"  ng-disabled="!form.BookAddForm.$valid || addedAuthors.length<1" >Dodaj</button>
+   <button class="btn btn-success" ng-click="save()"  ng-disabled="!form.BookAddForm.$valid ||  selectedBook.authors.length<1" >Zapisz</button>
    
     
 </div>

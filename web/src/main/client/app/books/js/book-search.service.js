@@ -10,6 +10,9 @@ angular.module('app.books').factory('bookService', function (bookRestService) {
         },
         saveBook: function (book) {
             return bookRestService.saveBook(book);
+        },
+        findAll: function () {
+            return bookRestService.findAll();
         }
     };
 });

@@ -4,6 +4,9 @@ angular.module('app.books').factory('authorRestService', function ($http, curren
     return {
         findAll: function () {
             return $http.get(currentContextPath.get() + 'rest/authors/authors-list');
+        }, 
+        saveAuthor: function (author) {
+            return $http.post(currentContextPath.get() + 'rest/authors/author', author);
         }
     
     };

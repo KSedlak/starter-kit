@@ -8,7 +8,7 @@
 
       <div class="form-group">
             <label>Tytul Ksiazki:</label>
-            <input type="text" name="modalBookTitle" class="form-control" ng-model="book.title" ng-minlength="2"  required>
+            <input type="text" name="modalBookTitle" class="form-control" ng-model="addedBook.title" ng-minlength="2"  required>
             <p ng-show="form.BookAddForm.modalBookTitle.$error.minlength" class="help-block">Tytul musi miec conajmniej 2 litery</p>
  
         </div>
@@ -16,15 +16,15 @@
         
         <label>Pod autorstwem:</label><br>
   
-        <p ng-repeat="author in addedAuthors">
-  {{author.firstName}} {{author.lastName}}
+        <p ng-repeat="author in addedBook.authors">
+{{author.firstName}} {{author.lastName}}
   </p>
         <button class="btn" ng-click="addAuthor()">Dodaj autora</button>
         
              </div>
         <div class="modal-footer">
             <button class="btn btn-warning" ng-click="$dismiss()">Zamknij</button>
-   <button class="btn btn-success" ng-click="save()"  ng-disabled="!form.BookAddForm.$valid || addedAuthors.length<1" >Dodaj</button>
+   <button class="btn btn-success" ng-click="save()"  ng-disabled="!form.BookAddForm.$valid || addedBook.authors.length<1" >Dodaj</button>
    
     
 </div>

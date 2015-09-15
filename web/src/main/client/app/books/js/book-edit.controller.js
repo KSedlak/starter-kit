@@ -1,4 +1,4 @@
-angular.module('app.books').controller('BookEditController', function ($scope, $modal, $window,isEdited,bookService,$modalInstance,selectedBook) {
+angular.module('app.books').controller('BookEditController', function ($scope, $modal, $window,bookService,$modalInstance,selectedBook,Flash) {
     'use strict';
     
     $scope.title = 'title';
@@ -8,9 +8,8 @@ angular.module('app.books').controller('BookEditController', function ($scope, $
 
     $scope.editedAuthor= {firstName: "", lastName: ""};
     
-    $scope.isEdited=isEdited;
     $scope.selectedBook=selectedBook;
-    $scope.addedAuthors = selectedBook.authors;
+
     
 
   
@@ -58,7 +57,7 @@ angular.module('app.books').controller('BookEditController', function ($scope, $
      
     	modalInstance.result.then(function (editedAuthor) {
     	
-         $scope.addedAuthors.push({
+         $scope.selectedBook.authors.push({
          	firstName: editedAuthor.firstName,
          	lastName: editedAuthor.lastName
          });
@@ -73,23 +72,24 @@ angular.module('app.books').controller('BookEditController', function ($scope, $
     $scope.save = function () {
 
     	var dataObj = {
-    			id: $scope.selectedBook.id,
-				title : $scope.selectedBook.title,
-				authors : $scope.addedAuthors
+    			id: '',
+				title : 'jas',
+				authors : $scope.selectedBook.authors
 		};
     	
 
     	var result= bookService.saveBook(dataObj);
     	result.then(function(response) {
     		  $scope.selectedBook = response.data;
+          	   Flash.create('success', 'Książka została edytowana.', 'custom-class');
     		})
-    	$modalInstance.close($scope.isEdited);
+    	$modalInstance.close();
 
       };
 
       $scope.remove = function(author) { 
-    	  var index = $scope.addedAuthors.indexOf(author);
-    	  $scope.addedAuthors.splice(index, 1);     
+    	  var index = $scope.selectedBook.authors.indexOf(author);
+    	  $scope.selectedBook.authors.splice(index, 1);     
     	}
     	
 

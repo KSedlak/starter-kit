@@ -9,6 +9,7 @@ angular.module('app.books').controller('BookSearchController', function ($scope,
    $scope.isEdited=false;
    
    $scope.selectedBook;
+   $scope.addedBook={id:"", title:"", authors:""};
    
     var removeBookById = function (bookId) {
         for (var i = 0; i < $scope.books.length; i = i + 1) {
@@ -33,27 +34,30 @@ angular.module('app.books').controller('BookSearchController', function ($scope,
             Flash.create('success', 'Książka została usunięta.', 'custom-class');
         });
     };
-
+    
     $scope.addBook = function () {
-    	   var modalInstance = $modal.open({
-            templateUrl: 'books/html/add-book.html',
-            controller: 'BookAddController',
-            size: 'lg',
-            resolve: {
-            	isBookAdded: function () {
-                  return $scope.isBookAdded;
-                }
-              }
-    	 
-    	 });
-    	 
-    	 modalInstance.result.then(function (isBookAdded) {
-    	         $scope.isBookAdded=isBookAdded;
-    	         if(!isBookAdded){
-    	        	 $window.alert('nieudalo sie');
-    	         }
-    	 });           
-    };
+ 
+	   var modalInstance = $modal.open({
+       templateUrl: 'books/html/add-book.html',
+       controller: 'BookAddController',
+       size: 'lg',
+       resolve: {
+       	isBookAdded: function () {
+             return $scope.isBookAdded;
+           },
+           books:function(){
+        	   return $scope.books;
+           }
+
+         }
+	   
+	 
+	 });   
+	   
+	   modalInstance.result.then(function (books) {
+		      $scope.books= books;
+});
+    };  
     $scope.editBook = function (book) {
     	  $scope.selectedBook=book;
  	   var modalInstance = $modal.open({
@@ -69,15 +73,9 @@ angular.module('app.books').controller('BookSearchController', function ($scope,
                }
            }
  	 
- 	 });
- 	 
- 	 modalInstance.result.then(function (isEdited) {
- 	         $scope.isEdited=isEdited;
- 	         if(!isEdited){
-
- 	         }
- 	 });           
+ 	 });         
  };
+ 
 
 
 });
