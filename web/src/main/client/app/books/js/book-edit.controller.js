@@ -6,6 +6,8 @@ angular.module('app.books').controller('BookEditController', function ($scope, $
   
     $scope.author= {firstName: "", lastName: ""};
 
+    $scope.editedAuthor= {firstName: "", lastName: ""};
+    
     $scope.isEdited=isEdited;
     $scope.selectedBook=selectedBook;
     $scope.addedAuthors = selectedBook.authors;
@@ -38,13 +40,45 @@ angular.module('app.books').controller('BookEditController', function ($scope, $
      
     };
     
-   
+    $scope.editAuthor= function (editedAuthor) {
+    	
+    	$scope.editedAuthor=editedAuthor;
+    
+    	modalInstance = $modal.open({
+    	  templateUrl: 'authors/html/edit-author.html',
+          controller:'AuthorEditController',
+          		size: 'sm',
+            resolve: {
+            	editedAuthor: function () {
+                  return $scope.editedAuthor;
+                }
+              }
+     
+    });
+     
+    	modalInstance.result.then(function (editedAuthor) {
+    	
+         $scope.addedAuthors.push({
+         	firstName: editedAuthor.firstName,
+         	lastName: editedAuthor.lastName
+         });
+         $scope.editedAuthor.firstName = "";
+         $scope.editedAuthor.lastName = "";
+       }       
+       );
+     
+    };
+    
+
     $scope.save = function () {
     	$modalInstance.close();
 
       };
 
-      
+      $scope.remove = function(author) { 
+    	  var index = $scope.addedAuthors.indexOf(author);
+    	  $scope.addedAuthors.splice(index, 1);     
+    	}
     	
 
 });
