@@ -1,11 +1,11 @@
-angular.module('app.books').controller('BookAddController', function ($scope, $modal, $window,isBookAdded,bookService,$modalInstance) {
+angular.module('app.books').controller('BookAddController', function ($scope, $modal, $window,isBookAdded,bookService,$modalInstance, $location) {
     'use strict';
     
     $scope.title = 'title';
     var modalInstance;
     $scope.addedAuthors = [];
     $scope.author= {firstName: "", lastName: ""};
-    $scope.book = {title:""};
+    $scope.book = {title:"", authors:""};
     $scope.isBookAdded=isBookAdded;
 
     	
@@ -40,6 +40,11 @@ angular.module('app.books').controller('BookAddController', function ($scope, $m
     
    
     $scope.save = function () {
+    	var dataObj = {
+				title : $scope.book.title,
+				authors : $scope.addedAuthors
+		};
+    	bookService.saveBook(dataObj);
     	$modalInstance.close($scope.isBookAdded);
 
       };

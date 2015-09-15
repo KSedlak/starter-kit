@@ -74,7 +74,7 @@ angular.module('app.books').controller('BookSearchController', function ($scope,
  	 modalInstance.result.then(function (isEdited) {
  	         $scope.isEdited=isEdited;
  	         if(!isEdited){
- 	        	 $window.alert('nieudalo sie');
+
  	         }
  	 });           
  };

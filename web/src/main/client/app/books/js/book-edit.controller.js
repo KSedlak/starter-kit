@@ -12,7 +12,7 @@ angular.module('app.books').controller('BookEditController', function ($scope, $
     $scope.selectedBook=selectedBook;
     $scope.addedAuthors = selectedBook.authors;
     
-    
+
   
     
     $scope.addAuthor= function () {
@@ -71,7 +71,19 @@ angular.module('app.books').controller('BookEditController', function ($scope, $
     
 
     $scope.save = function () {
-    	$modalInstance.close();
+
+    	var dataObj = {
+    			id: $scope.selectedBook.id,
+				title : $scope.selectedBook.title,
+				authors : $scope.addedAuthors
+		};
+    	
+
+    	var result= bookService.saveBook(dataObj);
+    	result.then(function(response) {
+    		  $scope.selectedBook = response.data;
+    		})
+    	$modalInstance.close($scope.isEdited);
 
       };
 

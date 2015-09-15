@@ -24,7 +24,7 @@
              </div>
         <div class="modal-footer">
             <button class="btn btn-warning" ng-click="$dismiss()">Zamknij</button>
-   <button class="btn btn-success" ng-click="save()"  ng-disabled="!form.BookAddForm.$valid" >Dodaj</button>
+   <button class="btn btn-success" ng-click="save()"  ng-disabled="!form.BookAddForm.$valid || addedAuthors.length<1" >Dodaj</button>
    
     
 </div>
