@@ -1,0 +1,32 @@
+<div>
+
+        <div class="modal-header">
+            <h3 class="modal-title">Edytuj Ksiazke</h3>
+        </div>
+        <div class="modal-body">
+		<form name="form.BookAddForm" novalidate>
+
+      <div class="form-group">
+            <label>Tytul Ksiazki:</label>
+            <input type="text" name="modalBookTitle" class="form-control" ng-model="selectedBook.title" ng-minlength="2"  required>
+            <p ng-show="form.BookAddForm.modalBookTitle.$error.minlength" class="help-block">Tytul musi miec conajmniej 2 litery</p>
+ 
+        </div>
+        </form>
+        
+        <label>Pod autorstwem:</label><br>
+  
+        <p ng-repeat="author in addedAuthors">
+  {{author.firstName}} {{author.lastName}}
+  </p>
+        <button class="btn" ng-click="addAuthor()">Dodaj autora</button>
+        
+             </div>
+        <div class="modal-footer">
+            <button class="btn btn-warning" ng-click="$dismiss()">Zamknij</button>
+   <button class="btn btn-success" ng-click="save()"  ng-disabled="!form.BookAddForm.$valid" >Dodaj</button>
+   
+    
+</div>
+
+</div>

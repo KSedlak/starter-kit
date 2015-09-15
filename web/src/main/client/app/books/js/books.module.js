@@ -7,4 +7,7 @@ angular.module('app.books', ['ngRoute']).config(function ($routeProvider) {
     $routeProvider.when('/books/add-book', {
         templateUrl: 'books/html/add-book.html'
     });
+    $routeProvider.when('/books/edit-book', {
+        templateUrl: 'books/html/edit-book.html'
+    });
 });

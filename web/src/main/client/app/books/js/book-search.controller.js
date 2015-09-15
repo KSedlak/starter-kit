@@ -4,8 +4,11 @@ angular.module('app.books').controller('BookSearchController', function ($scope,
     $scope.books = [];
     $scope.gridOptions = { data: 'books' };
     $scope.prefix = '';
-
+    
    $scope.isBookAdded=false;
+   $scope.isEdited=false;
+   
+   $scope.selectedBook;
    
     var removeBookById = function (bookId) {
         for (var i = 0; i < $scope.books.length; i = i + 1) {
@@ -51,7 +54,30 @@ angular.module('app.books').controller('BookSearchController', function ($scope,
     	         }
     	 });           
     };
-
+    $scope.editBook = function (book) {
+    	  $scope.selectedBook=book;
+ 	   var modalInstance = $modal.open({
+         templateUrl: 'books/html/edit-book.html',
+         controller: 'BookEditController',
+         size: 'lg',
+         resolve: {
+         	isEdited: function () {
+               return $scope.isEdited;
+             },
+             selectedBook: function () {
+                 return $scope.selectedBook;
+               }
+           }
+ 	 
+ 	 });
+ 	 
+ 	 modalInstance.result.then(function (isEdited) {
+ 	         $scope.isEdited=isEdited;
+ 	         if(!isEdited){
+ 	        	 $window.alert('nieudalo sie');
+ 	         }
+ 	 });           
+ };
 
 
 });
