@@ -77,3 +77,65 @@ angular.module('app.books').controller('BookSearchController', function ($scope,
 
 
 });
+
+
+//Dodany test dla search wg polecania ma byc tu a nie w *.spec.js
+
+
+describe('book controller', function () {
+    'use strict';
+
+    beforeEach(function () {
+        module('app.main');
+        module('flash');
+        module('app.books');
+    });
+
+    var $scope;
+    beforeEach(inject(function ($rootScope) {
+        $scope = $rootScope.$new();
+    }));
+
+    it('search is defined', inject(function ($controller) {
+        // when
+        $controller('BookSearchController', {$scope: $scope});
+        // then
+        expect($scope.search).toBeDefined();
+    }));
+
+    it(' bookService.searchBook', inject(function ($controller, $q, bookService) {
+        // given
+    	
+    	$scope.books=[
+    	               {id:1,title:'Pierwsza książka',authors:
+        	[{id:1,firstName:'Jan', lastName:'Kracy'}]}, 
+        	
+            {id:2,title:'Druga książka',authors:
+            	[{id:1,firstName:'Jan', lastName:'Kracy'}]}
+        	
+    	               ];
+    	
+    	var bookResult=	{data: //add data: to simulation result;
+    		[{id:1,title:'Pierwsza książka',authors:
+        	[{id:1,firstName:'Jan', lastName:'Kracy'}]}]};
+    	
+    	
+        $controller('BookSearchController', {$scope: $scope});
+        var searchPrefix='Pierwsza';
+
+        var searchDeferred = $q.defer();
+        spyOn(bookService, 'search').and.returnValue(searchDeferred.promise);
+
+        // when
+        $scope.prefix=searchPrefix;
+        $scope.search();
+        searchDeferred.resolve(bookResult);
+    
+        $scope.$digest();
+        // then
+        expect(bookService.search).toHaveBeenCalledWith($scope.prefix);
+        expect($scope.books.length).toBe(1);
+        expect($scope.books[0].title).toBe('Pierwsza książka');
+    }));
+});
+
