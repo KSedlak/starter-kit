@@ -28,7 +28,7 @@ angular.module('app.books').controller('BookEditController', function ($scope, $
     });
      
     	modalInstance.result.then(function (author) {
-         $scope.addedAuthors.push({
+         $scope.selectedBook.authors.push({
          	firstName: author.firstName,
          	lastName: author.lastName
          });
