@@ -7,7 +7,7 @@ angular.module('app.books').controller('BookAddController', function ($scope, $m
     $scope.books=books;
     $scope.author= {id:'', firstName: '', lastName: ''};
     $scope.addedBook={
-    	id: 1,
+    	id: null,
     	title:'',
     	authors:[]
     	
@@ -46,13 +46,8 @@ angular.module('app.books').controller('BookAddController', function ($scope, $m
     
    
     $scope.save = function () {
-    	var dataObj = {
-    		
-				title : $scope.addedBook.title,
-				authors : $scope.addedBook.authors
-		};
-   
-    	var result= bookService.saveBook(dataObj);
+ 
+    	var result= bookService.saveBook($scope.addedBook);
     	result.then(function() {
     		  Flash.create('success', 'Książka została dodana.', 'custom-class');
     		  var readUpdated =bookService.search('');
