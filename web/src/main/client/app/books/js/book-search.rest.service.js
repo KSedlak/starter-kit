@@ -11,9 +11,6 @@ angular.module('app.books').factory('bookRestService', function ($http, currentC
         },
         saveBook: function (book) {
             return $http.post(currentContextPath.get() + 'rest/books/book',book);
-        },
-        findAll: function () {
-            return $http.get(currentContextPath.get() + 'rest/books/list');
         }
     };
 });
