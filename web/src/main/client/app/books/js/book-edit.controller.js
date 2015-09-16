@@ -73,17 +73,9 @@ angular.module('app.books').controller('BookEditController', function ($scope, $
 
     $scope.save = function () {
     	$scope.selectedBook.title=$scope.newBookTitle;
-    	var dataObj = {
-    			id: $scope.selectedBook.id,
-				title :$scope.selectedBook.title,
-				authors : $scope.selectedBook.authors
-		};
-    	
-
-    	var result= bookService.saveBook(dataObj);
-    	result.then(function(response) {
-    		  $scope.selectedBook = response.data;
-          	   Flash.create('success', 'Książka została edytowana.', 'custom-class');
+    	var result= bookService.saveBook($scope.selectedBook);
+    	result.then(function() {
+          	Flash.create('success', 'Książka została edytowana.', 'custom-class');
            	$modalInstance.close();
     		});
 
