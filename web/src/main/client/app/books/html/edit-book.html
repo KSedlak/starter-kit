@@ -17,7 +17,7 @@
         <label>Pod autorstwem:</label><br>
   
         <p ng-repeat="author in selectedBook.authors">
-  {{author.firstName}} {{author.lastName}} <button class="btn" ng-click="editAuthor(author)">Edytuj</button>            <button class="btn btn-error" ng-click="remove(author)">Usun</button>
+ {{selectedBook.authors.length}} {{author.firstName}} {{author.lastName}} <button class="btn" ng-click="editAuthor(author)">Edytuj</button>            <button class="btn btn-error" ng-click="remove(author)">Usun</button>
   </p>
         <button class="btn" ng-click="addAuthor()">Dodaj autora</button>
         

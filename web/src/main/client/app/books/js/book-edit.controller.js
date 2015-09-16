@@ -38,7 +38,9 @@ angular.module('app.books').controller('BookEditController', function ($scope, $
        );
      
     };
-    
+
+  	 
+  
     $scope.editAuthor= function (editedAuthor) {
     	
     	$scope.editedAuthor=editedAuthor;
@@ -56,15 +58,7 @@ angular.module('app.books').controller('BookEditController', function ($scope, $
     });
      
     	modalInstance.result.then(function (editedAuthor) {
-    	
-         $scope.selectedBook.authors.push({
-        	 id: editedAuthor.id,
-         	firstName: editedAuthor.firstName,
-         	lastName: editedAuthor.lastName
-         });
-         $scope.editedAuthor.id = '';
-         $scope.editedAuthor.firstName = '';
-         $scope.editedAuthor.lastName = '';
+    		$scope.editedAuthor=editedAuthor;
        }       
        );
      
@@ -82,10 +76,7 @@ angular.module('app.books').controller('BookEditController', function ($scope, $
 
       };
 
-      $scope.remove = function(author) { 
-    	  var index = $scope.selectedBook.authors.indexOf(author);
-    	  $scope.selectedBook.authors.splice(index, 1);     
-    	};
+      
     	
 
 });
