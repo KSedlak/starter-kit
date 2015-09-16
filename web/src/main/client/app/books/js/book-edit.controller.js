@@ -4,9 +4,9 @@ angular.module('app.books').controller('BookEditController', function ($scope, $
     $scope.title = 'title';
     var modalInstance;
 
-    $scope.author= {id:"", firstName: "", lastName: ""};
+    $scope.author= {id:'', firstName: '', lastName: ''};
 
-    $scope.editedAuthor= {id:"", firstName: "", lastName: ""};
+    $scope.editedAuthor= {id:'', firstName: '', lastName: ''};
     
     $scope.selectedBook=selectedBook;
     $scope.newBookTitle=selectedBook.title;
@@ -32,8 +32,8 @@ angular.module('app.books').controller('BookEditController', function ($scope, $
          	firstName: author.firstName,
          	lastName: author.lastName
          });
-         $scope.author.firstName = "";
-         $scope.author.lastName = "";
+         $scope.author.firstName = '';
+         $scope.author.lastName = '';
        }       
        );
      
@@ -62,9 +62,9 @@ angular.module('app.books').controller('BookEditController', function ($scope, $
          	firstName: editedAuthor.firstName,
          	lastName: editedAuthor.lastName
          });
-         $scope.editedAuthor.id = "";
-         $scope.editedAuthor.firstName = "";
-         $scope.editedAuthor.lastName = "";
+         $scope.editedAuthor.id = '';
+         $scope.editedAuthor.firstName = '';
+         $scope.editedAuthor.lastName = '';
        }       
        );
      
@@ -84,15 +84,16 @@ angular.module('app.books').controller('BookEditController', function ($scope, $
     	result.then(function(response) {
     		  $scope.selectedBook = response.data;
           	   Flash.create('success', 'Książka została edytowana.', 'custom-class');
-    		})
-    	$modalInstance.close();
+           	$modalInstance.close();
+    		});
+
 
       };
 
       $scope.remove = function(author) { 
     	  var index = $scope.selectedBook.authors.indexOf(author);
     	  $scope.selectedBook.authors.splice(index, 1);     
-    	}
+    	};
     	
 
 });

@@ -5,7 +5,7 @@ angular.module('app.books').controller('BookAddController', function ($scope, $m
     var modalInstance;
    
     $scope.books=books;
-    $scope.author;
+    $scope.author= {id:'', firstName: '', lastName: ''};
     $scope.addedBook={
     	id: 1,
     	title:'',
@@ -36,9 +36,9 @@ angular.module('app.books').controller('BookAddController', function ($scope, $m
          	lastName: $scope.author.lastName
    
          });
-         $scope.author.firstName = "";
-         $scope.author.lastName = "";
-         $scope.author.id = "";
+         $scope.author.firstName = '';
+         $scope.author.lastName = '';
+         $scope.author.id = '';
        }       
        );
      
@@ -53,7 +53,7 @@ angular.module('app.books').controller('BookAddController', function ($scope, $m
 		};
    
     	var result= bookService.saveBook(dataObj);
-    	result.then(function(response) {
+    	result.then(function() {
     		  Flash.create('success', 'Książka została dodana.', 'custom-class');
     		  var readUpdated =bookService.search('');
     		  readUpdated.then(function(response) {

@@ -8,8 +8,8 @@ angular.module('app.books').controller('BookSearchController', function ($scope,
    $scope.isBookAdded=false;
    $scope.isEdited=false;
    
-   $scope.selectedBook;
-   $scope.addedBook={id:"", title:"", authors:""};
+   $scope.selectedBook={id:'', title:'', authors:''};
+   $scope.addedBook={id:'', title:'', authors:''};
    
     var removeBookById = function (bookId) {
         for (var i = 0; i < $scope.books.length; i = i + 1) {
@@ -58,7 +58,7 @@ angular.module('app.books').controller('BookSearchController', function ($scope,
     };  
     $scope.editBook = function (book) {
     	  $scope.selectedBook=book;
- 	   var modalInstance = $modal.open({
+    	  $modal.open({
          templateUrl: 'books/html/edit-book.html',
          controller: 'BookEditController',
          size: 'lg',

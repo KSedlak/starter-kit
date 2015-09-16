@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="pl.spring.demo.web.rest.BookRestServiceTest" time="0.208" tests="2" errors="0" skipped="0" failures="0">
+<testsuite name="pl.spring.demo.web.rest.BookRestServiceTest" time="0.133" tests="2" errors="0" skipped="0" failures="0">
   <properties>
     <property name="java.runtime.name" value="Java(TM) SE Runtime Environment"/>
     <property name="sun.boot.library.path" value="C:\Program Files\Java\jdk1.8.0_60\jre\bin"/>
     <property name="java.vm.version" value="25.60-b23"/>
     <property name="user.country.format" value="DE"/>
     <property name="java.vm.vendor" value="Oracle Corporation"/>
-    <property name="maven.multiModuleProjectDirectory" value="C:\Users\KSEDLAK\Desktop\SPRING REPOSITORIES\Spring-Week4\starter-kit"/>
+    <property name="maven.multiModuleProjectDirectory" value="C:\Users\KSEDLAK\Desktop\SPRING REPOSITORIES\Spring-Week4\starter-kit\web"/>
     <property name="java.vendor.url" value="http://java.oracle.com/"/>
     <property name="path.separator" value=";"/>
     <property name="guice.disable.misplaced.annotation.check" value="true"/>
@@ -17,7 +17,7 @@
     <property name="sun.java.launcher" value="SUN_STANDARD"/>
     <property name="sun.os.patch.level" value="Service Pack 1"/>
     <property name="java.vm.specification.name" value="Java Virtual Machine Specification"/>
-    <property name="user.dir" value="C:\Users\KSEDLAK\Desktop\SPRING REPOSITORIES\Spring-Week4\starter-kit"/>
+    <property name="user.dir" value="C:\Users\KSEDLAK\Desktop\SPRING REPOSITORIES\Spring-Week4\starter-kit\web"/>
     <property name="java.runtime.version" value="1.8.0_60-b27"/>
     <property name="java.awt.graphicsenv" value="sun.awt.Win32GraphicsEnvironment"/>
     <property name="java.endorsed.dirs" value="C:\Program Files\Java\jdk1.8.0_60\jre\lib\endorsed"/>
@@ -27,7 +27,7 @@
     <property name="java.vm.specification.vendor" value="Oracle Corporation"/>
     <property name="user.variant" value=""/>
     <property name="os.name" value="Windows 7"/>
-    <property name="classworlds.conf" value="C:\Users\KSEDLAK\Documents\workspace-sts-3.7.0.RELEASE\.metadata\.plugins\org.eclipse.m2e.launching\launches\m2conf7833266067878731327.tmp"/>
+    <property name="classworlds.conf" value="C:\Users\KSEDLAK\Documents\workspace-sts-3.7.0.RELEASE\.metadata\.plugins\org.eclipse.m2e.launching\launches\m2conf5848558470639593749.tmp"/>
     <property name="sun.jnu.encoding" value="Cp1252"/>
     <property name="java.library.path" value="C:\Program Files\Java\jdk1.8.0_60\bin;C:\WINDOWS\Sun\Java\bin;C:\WINDOWS\system32;C:\WINDOWS;C:/Program Files (x86)/Java/jre7/bin/client;C:/Program Files (x86)/Java/jre7/bin;C:/Program Files (x86)/Java/jre7/lib/i386;C:\ProgramData\Oracle\Java\javapath;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0\;C:\Program Files (x86)\Git\cmd;C:\Program Files (x86)\GitExtensions\;C:\Program Files\Java\jdk1.7.0_45\bin;C:\Maven\bin;C:\Program Files\nodejs\;C:\Program Files (x86)\IDM Computer Solutions\UltraEdit;C:\Users\KSEDLAK\AppData\Roaming\npm;C:\sts-bundle\sts-3.7.0.RELEASE;;."/>
     <property name="java.specification.name" value="Java Platform API Specification"/>
@@ -44,7 +44,7 @@
     <property name="java.vm.specification.version" value="1.8"/>
     <property name="sun.arch.data.model" value="64"/>
     <property name="java.home" value="C:\Program Files\Java\jdk1.8.0_60\jre"/>
-    <property name="sun.java.command" value="org.codehaus.plexus.classworlds.launcher.Launcher -B install"/>
+    <property name="sun.java.command" value="org.codehaus.plexus.classworlds.launcher.Launcher -B test"/>
     <property name="java.specification.vendor" value="Oracle Corporation"/>
     <property name="user.language" value="en"/>
     <property name="user.language.format" value="de"/>
@@ -54,7 +54,7 @@
     <property name="java.ext.dirs" value="C:\Program Files\Java\jdk1.8.0_60\jre\lib\ext;C:\WINDOWS\Sun\Java\lib\ext"/>
     <property name="sun.boot.class.path" value="C:\Program Files\Java\jdk1.8.0_60\jre\lib\resources.jar;C:\Program Files\Java\jdk1.8.0_60\jre\lib\rt.jar;C:\Program Files\Java\jdk1.8.0_60\jre\lib\sunrsasign.jar;C:\Program Files\Java\jdk1.8.0_60\jre\lib\jsse.jar;C:\Program Files\Java\jdk1.8.0_60\jre\lib\jce.jar;C:\Program Files\Java\jdk1.8.0_60\jre\lib\charsets.jar;C:\Program Files\Java\jdk1.8.0_60\jre\lib\jfr.jar;C:\Program Files\Java\jdk1.8.0_60\jre\classes"/>
     <property name="java.vendor" value="Oracle Corporation"/>
-    <property name="maven.home" value="C:\Users\KSEDLAK\Desktop\SPRING REPOSITORIES\Spring-Week4\starter-kit\EMBEDDED"/>
+    <property name="maven.home" value="C:\Users\KSEDLAK\Desktop\SPRING REPOSITORIES\Spring-Week4\starter-kit\web\EMBEDDED"/>
     <property name="file.separator" value="\"/>
     <property name="java.vendor.url.bug" value="http://bugreport.sun.com/bugreport/"/>
     <property name="sun.cpu.endian" value="little"/>
@@ -62,6 +62,6 @@
     <property name="sun.desktop" value="windows"/>
     <property name="sun.cpu.isalist" value="amd64"/>
   </properties>
-  <testcase name="testShouldCallBookService" classname="pl.spring.demo.web.rest.BookRestServiceTest" time="0.091"/>
-  <testcase name="testShouldSaveBook" classname="pl.spring.demo.web.rest.BookRestServiceTest" time="0.117"/>
+  <testcase name="testShouldCallBookService" classname="pl.spring.demo.web.rest.BookRestServiceTest" time="0.057"/>
+  <testcase name="testShouldSaveBook" classname="pl.spring.demo.web.rest.BookRestServiceTest" time="0.076"/>
 </testsuite>

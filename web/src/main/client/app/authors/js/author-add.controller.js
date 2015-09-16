@@ -1,6 +1,6 @@
 angular.module('app.authors').controller(
 		'AuthorAddController',
-		function($scope, $modalInstance, author, $window, authorService) {
+		function($scope, $modalInstance) {
 			'use strict';
 
 			$scope.title = 'title';

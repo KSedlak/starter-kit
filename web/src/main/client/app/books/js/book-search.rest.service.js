@@ -1,4 +1,4 @@
-angular.module('app.books').factory('bookRestService', function ($http, currentContextPath, $window) {
+angular.module('app.books').factory('bookRestService', function ($http, currentContextPath) {
     'use strict';
 
     return {
