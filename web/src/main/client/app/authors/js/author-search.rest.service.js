@@ -1,4 +1,4 @@
-angular.module('app.books').factory('authorRestService', function ($http, currentContextPath) {
+angular.module('app.authors').factory('authorRestService', function ($http, currentContextPath) {
     'use strict';
 
     return {

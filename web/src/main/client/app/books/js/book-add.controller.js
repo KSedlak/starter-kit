@@ -50,11 +50,9 @@ angular.module('app.books').controller('BookAddController', function ($scope, $m
     	var result= bookService.saveBook($scope.addedBook);
     	result.then(function() {
     		  Flash.create('success', 'Książka została dodana.', 'custom-class');
-    		  var readUpdated =bookService.search('');
-    		  readUpdated.then(function(response) {
-    			$scope.books=response.data;
+    		  $scope.books.push($scope.addedBook);
     			  $modalInstance.close($scope.books);
-    		  });
+    		 
       });
     };
       
