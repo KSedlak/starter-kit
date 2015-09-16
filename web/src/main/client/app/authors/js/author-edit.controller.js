@@ -10,7 +10,7 @@ angular.module('app.authors').controller('AuthorEditController', function ($scop
     $scope.ok = function () {
     	$scope.editedAuthor.firstName= $scope.newName;
     	$scope.editedAuthor.lastName= $scope.newLastName;
-        $modalInstance.close( $scope.editAuthor );
+        $modalInstance.close( $scope.editedAuthor );
       };
     	
     	

@@ -1,4 +1,4 @@
-describe('AuthorAddController', function () {
+describe('AuthorEditController', function () {
     'use strict';
   beforeEach(function () {
 	        module('app.main');
@@ -21,23 +21,26 @@ describe('AuthorAddController', function () {
           then: jasmine.createSpy('modalInstance.result.then')
         }
       };
-      Ctrl = $controller('AuthorAddController', {
+      Ctrl = $controller('AuthorEditController', {
         $scope: scope,
         $modalInstance: modalInstance,
-
+        editedAuthor:{id: 1, firstName:'Henryk', lastName:'Sienkiewicz'}
       });
     })
   );
 
-  describe('Initial state', function () {
+  describe('Author Editor', function () {
 	  
 	    it('should instantiate the controller properly', function () {
 	      expect(Ctrl).not.toBeUndefined();
 	    });
 	    
-	    it('should close the modal and return author', function () {
+	    it('should ', function () {
+	    	scope.newName='Adam';
 	        scope.ok();
-	        expect(modalInstance.close).toHaveBeenCalledWith(scope.author);
+	        expect(scope.editedAuthor.firstName).toBe(scope.newName);
+	        expect(modalInstance.close).toHaveBeenCalledWith(scope.editedAuthor);
+	       
 	      });
 	  });
 	});
