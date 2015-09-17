@@ -4,30 +4,30 @@
 <section>
     <div flash-message="5000" ></div>
 
-    <p>Podaj tytuł książki:</p>
-    <input type="text" ng-model="prefix">
-    <button ng-click="search()">Szukaj</button>
-    <button ng-click="addBook()">Dodaj książkę</button>
-
-    <table  ng-show="books.length>0">
+    <h3>Podaj tytuł książki:</h3>
+      <div class="input-group">
+          <span class="input-group-btn">  
+    <input type="text" ng-model="prefix" class="form-control">
+    <button ng-click="search()" class="btn btn-default">Szukaj</button>
+    <button ng-click="addBook()" class="btn btn-default"><span class="glyphicon glyphicon-plus"></span> Dodaj książkę</button></span>
+</div>
+    <table class="table table-striped table-bordered table-condensed""  ng-show="books.length>0">
         <tr>
             <th>Tytuł</th>
             <th>Autorzy</th>
-            <th>Usuń</th>
-             <th>Edytuj</th>
+            <th></th>
+
         </tr>
         <tr ng-repeat="book in books">
-            <td>{{ book.title }}</td>
+            <td><p class="tablemMargin">{{ book.title }}</p></td>
             <td>
-              <div ng-repeat="author in book.authors">
-				<p>{{author.firstName}} {{author.lastName}}</p>
-				</div>								            
+      
+				<p class="tablemMargin" ng-repeat="author in book.authors">{{author.firstName}} {{author.lastName}}</p>
+										            
             </td>
             <td>
-                <button ng-click="deleteBook(book.id)">Usuń</button>
-            </td>
-            <td>
-                <button ng-click="editBook(book)">Edytuj</button>
+                <button type="button" class="btn btn-sm btn-danger" ng-click="deleteBook(book.id)"><span class="glyphicon glyphicon-ban-circle"></span> USUN</button>
+           <button type="button" class="btn  btn-sm btn-primary" ng-click="editBook(book)"><span class="glyphicon glyphicon-edit"></span> EDYTUJ</button>
             </td>
             
         </tr>

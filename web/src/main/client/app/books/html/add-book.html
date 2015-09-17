@@ -15,12 +15,10 @@
         </form>
         
         <label>Pod autorstwem:</label><br>
-  
-        <p ng-repeat="author in addedBook.authors">
+  <h4 class="text-info" ng-repeat="author in addedBook.authors">
+
 {{author.firstName}} {{author.lastName}}
-  </p>
-        <button class="btn" ng-click="addAuthor()">Dodaj autora</button>
-        
+ </h4>       <button type="button" class="btn btn-xs btn-success" ng-click="addAuthor()"><span class="glyphicon glyphicon-ban-plus"></span> Dodaj autora</button>
              </div>
         <div class="modal-footer">
             <button class="btn btn-warning" ng-click="$dismiss()">Zamknij</button>

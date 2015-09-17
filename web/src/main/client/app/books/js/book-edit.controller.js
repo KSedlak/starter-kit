@@ -38,7 +38,14 @@ angular.module('app.books').controller('BookEditController', function ($scope, $
        );
      
     };
-
+    $scope.remove = function (authorId) {
+        for (var i = 0; i < $scope.selectedBook.authors.length; i = i + 1) {
+            if ($scope.selectedBook.authors[i].id === authorId) {
+                $scope.selectedBook.authors.splice(i, 1);
+                break;
+            }
+        }
+    };
   	 
   
     $scope.editAuthor= function (editedAuthor) {

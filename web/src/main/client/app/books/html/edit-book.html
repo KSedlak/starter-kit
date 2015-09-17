@@ -14,12 +14,14 @@
         </div>
         </form>
         
-        <label>Pod autorstwem:</label><br>
-  
-        <p ng-repeat="author in selectedBook.authors">
- {{selectedBook.authors.length}} {{author.firstName}} {{author.lastName}} <button class="btn" ng-click="editAuthor(author)">Edytuj</button>            <button class="btn btn-error" ng-click="remove(author)">Usun</button>
-  </p>
-        <button class="btn" ng-click="addAuthor()">Dodaj autora</button>
+        <label>Pod autorstwem:</label>
+
+<h4 class="text-info" ng-repeat="author in selectedBook.authors"> {{author.firstName}} {{author.lastName}} 
+
+<button type="button" class="btn btn-xs btn-danger" ng-click="remove(author.id)"><span class="glyphicon glyphicon-ban-circle"></span> Usun</button>
+ <button type="button" class="btn btn-xs btn-primary" ng-click="editAuthor(author)"><span class="glyphicon glyphicon-edit"></span> Edytuj</button>
+</h4>
+<button type="button" class="btn btn-xs btn-success" ng-click="addAuthor()"><span class="glyphicon glyphicon-ban-plus"></span> Dodaj autora</button>
         
              </div>
         <div class="modal-footer">
