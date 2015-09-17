@@ -84,4 +84,20 @@ var context;
         expect(bookReturned).toEqual(bookToSave);
     });
 	
+	it('should delete book', function(){
+		var idToDelete=1;
+        httpBackend.expectDELETE(context + 'rest/books/book/'+idToDelete) .respond(200, 'OK');
+        var deferredResponse = $bookRestService.deleteBook(idToDelete);
+        var deleteResponse;
+        deferredResponse.then(function(response){
+        	deleteResponse = response;
+        });
+        
+
+        httpBackend.flush();
+
+        expect(deleteResponse.status).toBe(200);
+    });
+	
+	
 });
