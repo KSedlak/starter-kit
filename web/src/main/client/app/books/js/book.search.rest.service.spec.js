@@ -59,7 +59,8 @@ var context;
 	
 	
 	
-	it('should ', function(){
+	it('should search book', function(){
+		var query='Lalk';
 		var ret={
 				data : [
 				        {id:1,
@@ -68,9 +69,12 @@ var context;
 				        }
 				        ]
 			};
-		
-        httpBackend.expect('GET',context + 'rest/books/books-by-title?titlePrefix=Lalka').respond(ret);
-        var deferredResponse = $bookRestService.search('Lalka');
+
+        httpBackend.expectGET(context + 'rest/books/books-by-title'+
+        		'?titlePrefix='+query      
+        )  
+        .respond(ret);
+        var deferredResponse = $bookRestService.search(query);
         var bookReturned;
         deferredResponse.then(function(response){
         	bookReturned = response.data;
