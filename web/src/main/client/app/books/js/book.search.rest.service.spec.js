@@ -32,31 +32,7 @@ var context;
 		expect($bookRestService.saveBook).toBeDefined();
 	}));
 
-	//other tests
-/*	it('bookRestService.saveBook', inject(function($rootScope, $controller) {
-		// given
-	    $scope = $rootScope.$new();
-		$controller('BookSearchController', {
-		      $scope: $scope
-		    });
-		var book=
-		{id:null,title:'Lalka',authors:
-        	[{id:null,firstName:'Jan', lastName:'Kracy'}]
-        };
-		// when
-		httpBackend.expect('POST', context + 'rest/books/book', book).respond({
-			data : [{id:1,title:'Lalka',authors:
-	        	[{id:1,firstName:'Jan', lastName:'Kracy'}]}]
-		});
-		$bookRestService.saveBook(book);
-		// then
-	
-		httpBackend.flush();
-		$scope.search('');//refresh books
-	    expect($scope.books.length).toBe(1);
-		
-	}));*/
-	
+//Other tests
 	
 	
 	it('should search book', function(){
@@ -83,6 +59,29 @@ var context;
         httpBackend.flush();
 
         expect(bookReturned).toEqual(ret);
+    });
+	
+	it('should save book', function(){
+		var bookToSave={
+					data:	[
+				        {
+				        id:1,
+				        title:'Lalka',
+				        authors:[{id:1,firstName:'Jan', lastName:'Kracy'}]
+				        }
+				        ]
+			};
+
+        httpBackend.expectPOST(context + 'rest/books/book',bookToSave) .respond(bookToSave);
+        var deferredResponse = $bookRestService.saveBook(bookToSave);
+        var bookReturned;
+        deferredResponse.then(function(response){
+        	bookReturned = response.data;
+        });
+
+        httpBackend.flush();
+
+        expect(bookReturned).toEqual(bookToSave);
     });
 	
 });
