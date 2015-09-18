@@ -2,6 +2,7 @@ package pl.spring.demo.entity;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.Set;
 
 
 @Entity
@@ -18,7 +19,9 @@ public class AuthorEntity implements Serializable {
     private String firstName;
     @Column(nullable = false, length = 50)
     private String lastName;
-
+    @ManyToMany(mappedBy = "authors"
+           )
+    private Set<BookEntity> books;
     // for hibernate
     protected AuthorEntity() {
 }
@@ -51,6 +54,15 @@ public class AuthorEntity implements Serializable {
 
 	public void setLastName(String lastName) {
 		this.lastName = lastName;
+	}
+  
+	
+	public Set<BookEntity> getBooks() {
+		return books;
+	}
+
+	public void setBooks(Set<BookEntity> books) {
+		this.books = books;
 	}
 
 

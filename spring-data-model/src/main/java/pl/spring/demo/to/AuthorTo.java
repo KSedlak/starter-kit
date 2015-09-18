@@ -1,9 +1,12 @@
 package pl.spring.demo.to;
 
+import java.util.Set;
+
 public class AuthorTo {
     private Long id;
     private String firstName;
     private String lastName;
+    private Set<BookTo> books;
 
     public AuthorTo() {
     }
@@ -36,6 +39,14 @@ public class AuthorTo {
 
 	public void setLastName(String lastName) {
 		this.lastName = lastName;
+	}
+
+	public Set<BookTo> getBooks() {
+		return books;
+	}
+
+	public void setBooks(Set<BookTo> books) {
+		this.books = books;
 	}
 
 
